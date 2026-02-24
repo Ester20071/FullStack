@@ -1,0 +1,26 @@
+body{
+    font-size: 12pt;
+    background-color: white;
+    text-align: center;
+}
+p{
+    color: black;
+    font-size: 18pt;
+    text-align:left;
+}
+
+div{
+    height:50px;
+    width: 300px;
+    background-color: white;
+    color: black;
+    margin-top: 50pt;
+    margin-bottom: 30pt;
+    margin-left:auto;
+    margin-right: auto;
+    border: 2px grey;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    padding-right:30px;
+    padding-left:100px;
+}

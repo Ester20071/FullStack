@@ -1,0 +1,27 @@
+body{
+    background-color: grey;
+}
+p{
+    font-size: 50pt;
+}
+#burro{
+    color:grey
+}
+.class{ 
+    color: green 
+}
+a:hover{
+    color:rgb(0, 255, 242)
+}
+body{
+    font-size: 12pt;
+    background-color: grey;
+    text-align: center;
+}
+p{
+    color:black;
+    font-size: 18pt;
+    text-align:center;
+
+}
+
