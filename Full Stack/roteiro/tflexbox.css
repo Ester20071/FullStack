@@ -1,0 +1,39 @@
+/**
+colocando - display: flex
+flex-direction:
+row → horizontal (da esquerda para a direita)
+row-reverse → horizontal invertida
+column → vertical (de cima para baixo)
+column-reverse → vertical invertida
+
+justify-content: (eixo principal)
+flex-start → itens grudados no início
+flex-end → itens grudados no fim
+center → itens centralizados
+space-between → espaço igual entre itens
+space-around → espaço igual ao redor de cada item
+space-evenly → espaço exatamente igual entre todos os itens
+
+align-items / align-self: (eixo cruzado)
+flex-start → topo/início do eixo cruzado
+flex-end → fundo/fim do eixo cruzado
+center → centro
+baseline → alinhamento pela linha de base do texto
+stretch → estica o item para preencher o eixo cruzado
+
+flex-wrap / align-content:
+nowrap → tudo numa linha
+wrap → quebra linhas
+wrap-reverse → quebra invertida
+
+align-content só funciona se houver mais de uma linha - alinha blocos
+align-itens alinha itens
+align-self:
+→ auto / flex-start / flex-end / center / baseline / stretch
+sobrescreve o align-items para um item específico
+
+se coloca <div style="order: 3"> </div> para os outros tbm
+order → muda a ordem do item
+flex-grow → faz crescer proporcionalmente
+flex-shrink → faz encolher proporcionalmente
+flex-basis → tamanho inicial antes de crescer/encolher

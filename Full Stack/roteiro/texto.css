@@ -46,3 +46,23 @@ img:hover {
     top:10px;
     padding-top: 115px;
 }
+
+
+/** DISPLAY :
+PARA DIV - Display Block coluna mas div ja e coluna
+Display: inline fica em linha
+
+position:
+static → natural
+relative → fica no fluxo normal da página, ou seja, respeita os outros elementos ao redor.
+Você pode deslocá-lo usando top, bottom, left e right, mas ele ainda “reserva espaço” no lugar original.
+position: relative;
+top: 20px;   /* desce 20px 
+left: 30px;  /* move 30px para a direita 
+background-color: red;
+absolute → pode sobrepor se prende ao containe nn aos elementos
+fixed → “me prendo à tela”
+sticky → “relativo até grudar”
+vc tbm coloca: position: fixed;
+bottom: 0;
+right: 0;  - para decidir onde ficar

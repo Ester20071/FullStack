@@ -1,0 +1,46 @@
+body{
+    background-color: grey;
+}
+
+
+.bloco{
+    /**/
+    display: flex;
+    background-color: red;
+    width:500px;
+    margin-top: -4px;
+    border-radius: 10%;
+    opacity: 0.5;
+
+}
+.bloco:hover{
+    opacity: 1.0;
+}
+.bloco div{
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    font-size: small;
+    flex-direction: column;
+}
+.emoji{
+    opacity: 0.6;
+}
+.emoji:hover{
+    opacity: 1.0;
+}
+.carinha{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ladoalado{
+    display: flex;
+    gap:20px;
+}
+.emoji-com-texto{
+    display: flex;
+    flex-direction: column; /* texto embaixo da imagem */
+    align-items: center;    /* centraliza o texto em relação à imagem */
+}
