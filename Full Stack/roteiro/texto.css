@@ -39,15 +39,51 @@ img:hover {
 /*IMAGEM PELA METADE*/
 
 .emoji{
-    position: fixed;   /* fixa na tela */
+    position: relative;   /* fixa na tela se vc colocar position: fixed */
     bottom: 0;         /* embaixo */
     left: -250px;      /* empurra metade pra fora */
     width: 500px;
     top:10px;
     padding-top: 115px;
 }
+/*CORTANDO IMAGEM: */
+.posicao{
+  padding-left: 400px;
+  align-items: center;
+  column-gap: 40px;
+}
+.metade-imagem {
+  width: 300px;               /* metade da largura original */
+  height: 500px;              /* altura original */
+  overflow: hidden;
+}
+/* Segunda imagem: metade superior */
+.metade-cima {
+    width: 500px;
+    height: 250px;           /* metade da altura */
+    background-image: url('carinha.jpg');
+    background-size: cover;
+    background-position: top; /* metade superior */
+}
 
+/* Terceira imagem: metade inferior */
+.metade-baixo {
+    width: 500px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
 
+.metade-baixo img {
+    position: absolute;
+    top: -250px;             /* move a imagem para mostrar metade inferior */
+    left: 0;
+    display: block;
+}
+.posi{
+  display: flex;
+  justify-content: space-evenly;
+}
 /** DISPLAY :
 PARA DIV - Display Block coluna mas div ja e coluna
 Display: inline fica em linha
