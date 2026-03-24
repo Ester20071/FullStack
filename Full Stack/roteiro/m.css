@@ -1,8 +1,9 @@
+/*a cor do fundo*/
 body{
     background-color: grey;
 }
 
-
+/*para ficar embaixo das imagens e ter a caixa vermelha e a posicao a msm da imagem*/
 .bloco{
     /**/
     display: flex;
@@ -13,9 +14,11 @@ body{
     opacity: 0.5;
 
 }
+/*opacidade do bloco vermelho com texto*/
 .bloco:hover{
     opacity: 1.0;
 }
+/*texto do bloco vermelho*/
 .bloco div{
     color: white;
     padding: 14px 20px;
@@ -24,23 +27,42 @@ body{
     font-size: small;
     flex-direction: column;
 }
+/*opacidade da imagem*/
 .emoji{
     opacity: 0.6;
 }
+/*mudanca de opacidade da imagem qdo passa mouse por cima*/
 .emoji:hover{
     opacity: 1.0;
 }
+/*- Envolve todas as carinhas
+   - Organiza as carinhas verticalmente (uma embaixo da outra)
+   - Centraliza tudo horizontalmente*/
 .carinha{
     display:flex;
     flex-direction: column;
     align-items: center;
 }
+/*- Organiza carinhas horizontalmente
+   - Adiciona espaço entre elas*/
 .ladoalado{
     display: flex;
     gap:20px;
 }
+/*   - Organiza a imagem e o bloco em coluna
+   - Mantém o bloco sempre embaixo da imagem
+   - Centraliza o bloco em relação à imagem:*/
 .emoji-com-texto{
     display: flex;
     flex-direction: column; /* texto embaixo da imagem */
     align-items: center;    /* centraliza o texto em relação à imagem */
+}
+/*para colocar um link parecendo um botao*/
+.btn {
+    display: inline-block;
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
 }
