@@ -1,0 +1,34 @@
+body {
+    background-color: grey;
+}
+
+.header {
+  background-color: lightgrey;
+  padding: 10px;
+  text-align: center;
+}
+
+/* estilo do info */
+ul.info {
+  display: flex;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  background-color: #333333;
+  justify-content: center;
+  gap: 50px
+}
+
+/* estilo de links no info */
+ul.info li a {
+  display: flex;
+  color: #f1f1f1;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* para mudar a cor qdo passa o mouse por cima */
+ul.info li a:hover {
+  background-color: #dddddd;
+  color: black;
+}

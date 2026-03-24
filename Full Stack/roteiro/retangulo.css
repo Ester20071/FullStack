@@ -1,0 +1,22 @@
+.caixa{border: 1px solid black;
+  margin-top: 100px;
+  /*para definir a margem de baixo - Em VOLTA*/
+  margin-bottom: 100px;
+  /*margin-right: vai mais para a esquerda:*/
+  margin-right: 1000px;
+  /*margin-left: vai mais para a direita:*/
+  margin-left: 80px;
+  background-color: lightblue;}
+  .padding{
+    /*se quiser que seja uniforme todas as distancias iguais so coloque padding: e o valor e vai se igual*/
+    border: 1px solid black;
+  background-color: lightblue;
+  /*o padding cresce com o texto , o height pode vazar o texto*/
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 80px;
+  /*para definir a largura da caixa - se nn colocar isso ele ocupara a pagina inteira: */
+  width: 300px;
+  
+  }

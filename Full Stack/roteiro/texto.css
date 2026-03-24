@@ -1,0 +1,48 @@
+/* justify-content: space-between; primeiro na esquerda, último na direita, espaço no meio - nn tem espaço nas pontas */
+/* justify-content: space-around;  espaço ao redor espaço em volta de todos */
+/* justify-content: flex-end;  direita */
+/* justify-content: flex-start; tudo para esquerda */ 
+/* display: flex - controlado horizontal por justify-content e vertical por align-items */
+/* justify-content: space-evenly; tudo com espaço IGUAL ate nas pontas*/
+/*align-items: center; centraliza verticalmente*/
+/*justify-content: flex-start;   /* esquerda */
+/*justify-content: flex-end;     /* direita */
+/*flex-wrap: wrap;          /* permite quebrar linha */
+/*gap: 10px;                /* espaço entre os itens */
+/*display: flex;            /* ativa o flexbox */
+/*justify-content: center;  /* centraliza horizontalmente */
+/*align-items: center;      /* centraliza verticalmente */
+/*align-items: center;      /* centraliza verticalmente */
+/*align-items: flex-start;  /* coloca no topo */
+/*align-items: flex-end;    /* coloca embaixo */
+/*font-weight: bolder; - se quiser deixar o texto em negrito*/
+/* background-color: rgba(255, 255, 255, 0.6); - cor transparente*/
+/*<div style="opacity:0.1;"><p>TEXTO</p></div> - mudar a opacidade do texto  */
+/*mudar opacidade do fundo: background-color: rgba(4, 170, 109, 0.3); - coloque 0.algo para mudar a opacidade ao lado da cor*/
+/*para ficar opaco qdo colocar por cima: img:hover {
+  opacity: 0.5;
+}*/
+/*mudar normalmente em imagem: 
+img {
+  opacity: 0.5;
+}*/
+/*esta opaco mas qdo clica nn : img {
+  opacity: 0.5;
+}
+
+img:hover {
+  opacity: 1.0;
+}
+*/
+/**/
+/**/
+/*IMAGEM PELA METADE*/
+
+.emoji{
+    position: fixed;   /* fixa na tela */
+    bottom: 0;         /* embaixo */
+    left: -250px;      /* empurra metade pra fora */
+    width: 500px;
+    top:10px;
+    padding-top: 115px;
+}

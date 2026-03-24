@@ -1,0 +1,29 @@
+/**/
+
+table.dupla, table.dupla th, table.dupla td {
+    /*cor da tabela e borda (borda dupla)*/
+  border: 1px solid black;
+}
+table.center {
+    /*para deixar a tabela no centro*/
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+table.unica {
+    /*tabela com linha unica*/
+  border-collapse: collapse;
+}
+table.unica, table.unica td, table.unica th {
+    /*cor da tabela borda unica*/
+border: 1px solid black;
+}
+table.direita, table.direita th, table.direita td {
+    /*tabela a direita cor borda unica*/
+  border: 1px solid black;
+}
+table.direita {
+    /*tabela comando a direita com linha unica*/
+    float: right;
+    border-collapse: collapse;
+}

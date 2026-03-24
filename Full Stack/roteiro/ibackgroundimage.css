@@ -1,0 +1,14 @@
+/*imagem no fundo*/
+.fundo{
+background-image: url('carro.png');
+/*para cobrir o texto*/
+/*cor do texto*/
+color: white;
+/*para texto nn ficar colado na borda*/
+padding: 20px;
+/*se nn quiser repetir a imagem*/
+background-repeat: no-repeat;
+/*posição*/
+background-position: left top;
+margin-left: 200px;
+}

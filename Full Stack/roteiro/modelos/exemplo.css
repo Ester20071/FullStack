@@ -1,0 +1,129 @@
+.menu{
+    /*referente a parte de cima */
+    display:flex;
+    justify-content: left;
+    gap:30px;
+    padding: 10px;
+}
+
+.cabecalho{
+    display:flex;
+    justify-content: space-evenly;
+    background-color: red;
+}
+.cabecalho div{
+    padding:10px;
+    color: white;
+    font-size: 24px;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.big_news{
+    display:flex;
+    justify-content: center;
+}
+
+.news1{
+    height: 452px;
+    width: 700px;
+    padding: 10px;
+    border: 5px solid gray;
+}
+
+.title{
+    font-size: 40px;
+    color: red;
+}
+
+.other_news{
+    width: 700px;
+    padding-left: 10px;
+    display:flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.item_other_news{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: large;
+    height: 200px;
+    padding: 10px;
+    border: 5px solid gray;
+}
+
+.feed{
+    /*bloco grande q contém toda a parte de baixo menos o rodape*/
+    display:flex;
+    justify-content: center;
+}
+
+.list{
+    /*para definir a largura de todo esse bloco:*/
+    width: 700px;
+    /*para definir a distancia dessa parte entre o de cima e o rodape:*/
+    padding: 10px;
+}
+
+.item_list{
+    margin-bottom: 10px;
+}
+
+.news_item{
+    display: flex;
+    /*para definir a distancia entre as imagens e as mensagens horizontalmente*/
+    gap: 10px;
+}
+
+.news_text{
+    /*definindo a distancia dos textos em relação as imagens verticalmente*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.see_that{
+    /*propriedades bloco - "viu isso?" */
+    /*distancia em volta do bloco*/
+    padding: 10px;
+    border: 5px solid gray;
+    /*para definir a largura do bloco viu isso:*/
+    width: 300px;
+}
+
+.see_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer{
+    background-color: red;
+    color: white;
+}
+
+.rodape{
+    display:flex;
+    padding:10px;
+    font-size: 24px;
+}
+
+.rodape div{
+    padding: 10px;
+}
+
+.footer_info{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.footer_info_right {
+    display: flex;
+    gap: 20px;
+}

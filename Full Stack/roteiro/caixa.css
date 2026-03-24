@@ -1,0 +1,9 @@
+.tudo{
+  background-color: lightgrey;
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+  /*a borda de fora , para fazer duas bordas - cor, formato, tamanho*/
+  outline: black dotted 10px;
+}

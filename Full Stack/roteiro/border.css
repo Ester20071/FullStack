@@ -1,0 +1,54 @@
+p.dotted {
+    border-style: dotted;
+    /*dá para deixar a borda mais larga*/
+    border-width:10px;
+}
+p.dashed {
+    border-style: dashed;
+    /*dá para mudar a cor da borda*/
+    border-color: red;
+}
+p.solid {
+    border-style: solid;
+    /*outra maneira de deixar solido e combinar com a largura e a cor para nn escrever mto*/
+    border: 5px solid red;
+}
+p.double {
+    border-style: double;
+    /*para deixar a borda arredondada*/
+    border-radius: 5px;
+    /*para deixar a borda larga*/
+    border-width: 5px;
+}
+p.groove {border-style: groove;}
+p.ridge {border-style: ridge;}
+p.inset {border-style: inset;}
+p.outset {border-style: outset;}
+p.none {border-style: none;}
+p.hidden {border-style: hidden;}
+p.mix {
+    /*ordem - em cima , direita, embaixo, esquerda*/
+    border-style: dotted dashed solid double;
+}
+p.different{
+    /*combinando estilos de borda*/
+    border-top-style: dotted;
+    border-right-style: solid;
+    border-bottom-style: dotted;
+    border-left-style: solid;
+}
+p.teste {
+    /*outra maneira de deixar solido e combinar com a largura e a cor para diminuir o tamanho*/
+    border: 5px dotted  red;
+
+}
+
+
+/*ALINHAÇÃO:*/
+.estilo{
+    /*deixando as bordas alinhadas no centro - precisa por width - que é largura*/
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
