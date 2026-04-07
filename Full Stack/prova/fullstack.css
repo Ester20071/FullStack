@@ -1,0 +1,118 @@
+ /**/
+ /*Imagem de fundo*/
+ .fundo{
+background-image: url('bg-header-desktop.png');
+
+background-repeat: no-repeat;
+background-position: top;
+opacity: 0.8;
+background-repeat: repeat-x;
+}
+/*propriedades logo "C"*/
+.logo{
+    display: flex;
+    justify-content: center;
+    padding: 60px;
+
+}
+/*propriedades da primeira frase*/
+.topo{
+    display: flex;
+    Font-size: 18px;
+    color: hsl(210, 10%, 33%);
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: -5px;
+    font-size: 40px;
+}
+/*propriedades da frase de baixo da primeira frase*/
+.letra{
+    display: flex;
+    color: hsl(201, 11%, 66%);
+    font-size: medium;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+}
+
+/*propriedades dos dois botoes*/
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+/*propriedades do botao download ios*/
+.botaodi {
+    display: inline-block;
+    background-color: hsl(171, 66%, 44%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+/*propriedades do botao download mac*/
+.botaodm {
+    display: inline-block;
+    justify-content: column;
+    background-color: hsl(233, 100%, 69%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+/*propriedades imagem do computador  */
+.imagemcomp {
+    display: flex;
+    position: relative;   
+    bottom: 0;         /* embaixo */
+    left: -50px;      /* empurra metade pra fora */
+    width: 500px;
+    top:10px;
+    padding-top: 115px;
+    opacity: 1.0;
+}
+.bloco1{
+    display: flex;
+    flex-direction: column;
+}
+.titulo{
+    color:hsl(210, 10%, 33%);
+    
+}
+.txt1{
+    color: hsl(201, 11%, 66%);
+    padding-right: 150px;
+}
+.txt2{
+    color: hsl(201, 11%, 66%);
+}
+.txt3{
+    color: hsl(201, 11%, 66%);
+}
+/*propriedades imagem do computador 2  */
+.img2{
+    display: flex;
+    justify-content: center;
+    opacity: 1.0;
+    padding-right: 500px;
+}
+.rodape{
+    display:flex;
+    padding:10px;
+    font-size: 24px;
+}
+
+.rodape div{
+    padding: 10px;
+}
+
+.footer_info{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.footer_info_right {
+    display: flex;
+    gap: 20px;
+}

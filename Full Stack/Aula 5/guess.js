@@ -1,10 +1,10 @@
-document.getElementById("testeDeId").innerHTML = "Coloque aqui um número entre 0 e 100"
+var numeroGerado = Math.floor(Math.random()*100)+1;
+console.log(numeroGerado);
+function VerificarNumero(){
+    var numeroAdivinhado = document.getElementById("tentandoAdivinhar").value;
 
-function coletaDeInformacao() {
-    var número = document.getElementById("testeDeInput").value
-    msgTeste(número)
+    if (numeroAdivinhado == numeroGerado){
+        window.alert("Você acertou!!")
+        document.getElementById("tentandoAdivinhar").style.setProperty("background-color", "red");
+    }
 }
-Math.random(0,99)
-Math.floor(1,100)
-//Utilize estrutura de condição if para verificar se o valor de entrada
-//é maior, menor ou igual ao valor gerado aleatoriamente.      
