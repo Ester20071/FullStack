@@ -41,26 +41,26 @@ ctx.stroke();
 ctx.fill();
 
 
-//linha azul
+//linha vermelha
 ctx.beginPath();
 // Set a start-point
 ctx.moveTo(250,50);
 // Set an end-point
 ctx.lineTo(135.5,135.5);
-ctx.fillStyle = 'blue';
+ctx.strokeStyle = 'red';
 // Draw it
 ctx.stroke();
 
-//linha vermelha
+//linha azul
 ctx.beginPath();
-ctx.fillStyle = 'red';
+ctx.strokeStyle = 'blue';
 ctx.moveTo(50,50);
 ctx.lineTo(135.5,135.5);
 ctx.stroke();
 
 //linha cinza
 ctx.beginPath();
-ctx.fillStyle = 'grey';
-ctx.moveTo(50,50);
-ctx.lineTo(90,90);
+ctx.strokeStyle = 'grey';
+ctx.moveTo(180,250);
+ctx.lineTo(55,137.5);
 ctx.stroke();

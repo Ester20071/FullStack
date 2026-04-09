@@ -45,13 +45,13 @@ ctx.closePath();
 ctx.beginPath();
 ctx.fillStyle = 'blue';
 ctx.fillRect(0,250,100,50);
-//circulo azul vertical
+//meio circulo azul vertical
 ctx.beginPath();
 ctx.fillStyle = 'blue';
 ctx.arc(-10,187,50,1*Math.PI,0*Math.PI);
 ctx.fill();
 ctx.closePath();
-//circulo azul horizontal
+//meio circulo azul horizontal
 ctx.beginPath();
 ctx.fillStyle = 'blue';
 ctx.arc(90,299.7,50,1.5*Math.PI,2.5*Math.PI);
@@ -90,3 +90,4 @@ ctx.fill();
 ctx.closePath();
 
 //x:110,y:110,l:85,h:130
+//1a linha = retangulo, 2a linha 110+50 e 110-50, 
