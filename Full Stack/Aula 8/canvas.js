@@ -17,7 +17,7 @@ let elemento = {
     x: 0,
     y: 200,
     raio:30,
-    cor:"pink",
+    cor:"green",
     desenha: function(){
         ctx.beginPath();
         ctx.fillStyle = this.cor;
@@ -101,10 +101,10 @@ let ganho= 10;
 document.addEventListener('keydown',function(evento){
     tecla = evento.key;
     console.log(tecla);
-    if(tecla == 'ArrowUp')   {elemento.y = elemento.y-1}  
-    if(tecla == 'ArrowDown') {elemento.y = elemento.y+1}  
-    if(tecla == 'ArrowLeft') {elemento.x = elemento.x-1}  
-    if(tecla == 'ArrowRight'){elemento.x = elemento.x+1}  
+    if(tecla == 'ArrowUp')   {elemento.y = elemento.y-1 *ganho}  
+    if(tecla == 'ArrowDown') {elemento.y = elemento.y+1 *ganho}  
+    if(tecla == 'ArrowLeft') {elemento.x = elemento.x-1 *ganho}  
+    if(tecla == 'ArrowRight'){elemento.x = elemento.x+1 *ganho}  
 })
 
 
