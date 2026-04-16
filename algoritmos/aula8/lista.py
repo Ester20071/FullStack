@@ -1,4 +1,5 @@
-#      l=['a', 56,7,'b',4.5] --- elementos /valores 
+#   Arrey = Lista
+#       l=['a', 56,7,'b',4.5] --- elementos /valores 
 #indice    0  1  2  3   4
 #uma lista representa um valor na memoria - nn vamos mais fazer uma copia
 #uma lista é uma variavel que armazena um conjunto de valores - com tipos homogeneos ou heterogeneos mas nn é recomendado - os valores sao acessados por um indice

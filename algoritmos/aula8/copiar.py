@@ -1,0 +1,5 @@
+#z = l.copy()
+#z.append(6)
+#print("l")
+#print(l)
+#print(z)
