@@ -1,0 +1,97 @@
+.cabecalho{
+    display: flex;
+    background-color:white;
+    text-align: left;
+    justify-content: left;
+    gap: 50px;
+    color: grey;
+    padding-left: 200px;
+    font-size: small;
+    padding-top: 20px;
+}
+i{
+    display: flex;
+    background-color:red;
+    text-align: left;
+    justify-content: left;
+    gap: 50px;
+    color: white;
+    font-size: 20px;
+    text-align: 20px;
+    
+}
+.correio{
+    display: flex;
+    align-items: left;
+    padding-left: 200px;
+    border-color: black;
+    background-color: white;
+    border: 5px solid thin black;
+    justify-content: space-between;
+
+}
+q{
+    padding-right: 200px;
+    display: flex;
+    justify-content: space-ar
+
+}
+.info{
+    display: flex;
+    background-color:white;
+    text-align: right;
+    justify-content: right;
+    gap: 30px;
+    color: grey;
+    padding-right: 220px;
+    font-size: small;
+    padding-top: 5px;
+    border-bottom: 2px;
+    border-color: black;
+
+}
+.linha{
+    display: flex;
+    background-color:white;
+    text-align: right;
+    justify-content: right;
+    gap: 50px;
+    color: grey;
+    padding-right: 200px;
+    font-size: small;
+    padding-top: 5px;
+}
+.texto{
+    display: flex;
+    align-items: left;
+    padding-left: 200px;
+    color: red;
+    font-size: 1--px
+}
+.carro{
+    display: flex;
+    align-items: left;
+    padding-left: 200px;
+    border-color: black;
+    background-color: white;
+    border: 5px solid thin black;
+    justify-content: space-between;
+}
+.vermelho{
+    display: flex;
+    background-color:red;
+    text-align: center;
+    justify-content: right;
+    padding-left: 200px;
+    font-size: small;
+    padding-top: -15px;
+    justify-content: space-between;
+    margin-left: 200px;
+    margin-right: 1187px;
+    color: white;
+}
+.img{
+    display: flex;
+    padding-right: 200px;
+    padding-left: 1000px;
+}

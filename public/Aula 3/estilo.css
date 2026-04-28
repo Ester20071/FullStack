@@ -1,0 +1,94 @@
+.cabecalho{
+    display: flex;
+    background-color:bisque;
+    justify-content: space-between;
+    align-items:center;
+    border: solid 4px rgb(6, 6, 170);
+}
+body{
+    background-color: lightgray;
+    text-align: center;
+}
+.inline{
+    display: inline;
+}
+p{
+    color: darkgreen;
+    font-size: 50px;
+    text-align: center;
+}
+.home{
+    display: flex;
+    background-color:lightskyblue;
+    text-align: center;
+    justify-content: center;
+    gap: 50px;
+  
+}
+b{
+    margin: 5px;
+    display: inline;
+    color: darkred;
+    font-size: 20px;
+    text-align: center;
+}
+a{
+    text-align: center;
+    color: black;
+}
+q{
+    color: indigo;
+    font-size: 20pt;
+    font: SansSerif;
+}
+i{
+    display: inline;
+    text-align: center;
+    justify-content: space-around;
+    margin: 30px;
+}
+.contatos{
+    border: dashed;
+    color: red;
+}
+
+table{
+    border-color:red;
+    border-style: dashed;
+    margin-right: auto;
+    margin-left:auto;
+}
+tr,td,th{
+    border-color:red;
+    border-style: solid;
+    margin-right: auto;
+    margin-left:auto;
+}
+u{
+    color: red;
+}
+.quadrado{
+    align-content: center;
+}
+.amarelo{
+    background-color: yellow;
+    text-align: left;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+.linha{
+    color: darkred;
+    align-items: center;
+}
+s{
+    color: black
+}
+
+.final{
+    display: flex;
+    background-color:bisque;
+    justify-content: space-between;
+    align-items:center;
+    padding: 20px;
+}
