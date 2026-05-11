@@ -1,0 +1,126 @@
+DIR -> lista itens
+cd -> change directory
+cls -> Limpa
+cd servidor -- para ir a pasta servidor
+
+
+
+
+
+Passo a passo do que fizemos
+
+Microsoft Windows [versão 10.0.26200.8246]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\feispepaulino>cd documents
+
+C:\Users\feispepaulino\Documents>cd servidor
+
+C:\Users\feispepaulino\Documents\servidor>npm install colors
+
+added 1 package in 2s
+
+C:\Users\feispepaulino\Documents\servidor>npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (servidor)
+version: (1.0.0)
+description: gfhitirutierhgihjdhjghuieio
+entry point: (index.js) servidor.js
+test command:
+git repository:
+keywords:
+author:
+license: (ISC)
+type: (commonjs)
+About to write to C:\Users\feispepaulino\Documents\servidor\package.json:
+
+{
+  "dependencies": {
+    "colors": "^1.4.0"
+  },
+  "name": "servidor",
+  "version": "1.0.0",
+  "description": "gfhitirutierhgihjdhjghuieio",
+  "main": "servidor.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+
+
+Is this OK? (yes)
+
+
+C:\Users\feispepaulino\Documents\servidor>npm install express --save
+
+added 65 packages, and audited 67 packages in 3s
+
+22 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\Users\feispepaulino\Documents\servidor>mkdir public  #arrasta os arquivos para cá que estará no servidor
+
+C:\Users\feispepaulino\Documents\servidor>mkdir views
+
+Agora abra/coloque a pasta servidor no vscode
+crie dentro da pasta servidor o "servidor.js" 
+dentro dele coloque esse código:
+
+"""""""""""""""""""""""""""""""""""""""""""""
+require("colors");
+// inclui o módulo http
+var http = require('http');
+// inclui o módulo express
+var express = require('express');
+
+// cria a variável app, pela qual acessaremos
+// os métodos / funções existentes no framework
+// express
+var app = express ();
+
+// método use() utilizado para definir em qual
+// pasta estará o conteúdo estático
+ app.use(express.static('./public'));
+
+// cria o servidor
+ var server = http.createServer(app);
+
+// define o número da porta que o servidor ouvirá
+ server.listen(3000);
+
+// mensagem exibida no console para debug
+ console.log("servidor rodando...".rainbow);
+ """"""""""""""""""""""""""""""""""""""""""""""
+ e no prompt de comando  coloque:
+
+ C:\Users\feispepaulino\Documents\servidor>node servidor.js
+servidor rodando...
+
+
+
+e aparecerá a palavra "servidor rodando..." - colorida
+
+
+
+depois no public cria um html
+escreve algo no body
+
+
+
+
+http://localhost/home.html
