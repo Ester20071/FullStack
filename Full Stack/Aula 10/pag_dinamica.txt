@@ -1,0 +1,91 @@
+servidor vai logar paginas de acordo com a necessidade
+taf <form> cria formulários que possibolitam que o servidor receba informacoes
+<form> action = logar a pessoa/pag de login
+<form> method get--- pega o nome da pessoa e o site vai ler isso e colocar -- campo de texto
+<form> method post--- pega o nome da pessoa e o site vai ler isso e colocar -- corpo da pag
+---get----melhor
+
+codigo nos slides
+
+
+para fazer o servidor rodar
+Microsoft Windows [versão 10.0.26200.8246]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\feispepaulino>cd
+C:\Users\feispepaulino
+
+C:\Users\feispepaulino>dir
+ O volume na unidade C é OS
+ O Número de Série do Volume é CE4B-2078
+
+ Pasta de C:\Users\feispepaulino
+
+24/02/2026  13:29    <DIR>          .
+27/04/2026  19:24    <DIR>          ..
+24/02/2026  13:29    <DIR>          .ms-ad
+19/02/2026  15:26    <DIR>          .vscode
+19/02/2026  15:26    <DIR>          Contacts
+01/04/2024  04:26    <DIR>          Desktop
+05/05/2026  14:32    <DIR>          Documents
+04/05/2026  18:29    <DIR>          Downloads
+19/02/2026  15:26    <DIR>          Favorites
+19/02/2026  15:26    <DIR>          Links
+19/02/2026  15:26    <DIR>          Music
+19/02/2026  15:27    <DIR>          OneDrive
+23/02/2026  16:54    <DIR>          Pictures
+19/02/2026  15:26    <DIR>          Saved Games
+23/02/2026  15:19    <DIR>          Searches
+16/03/2026  17:10    <DIR>          Videos
+               0 arquivo(s)              0 bytes
+              16 pasta(s)   539.200.450.560 bytes disponíveis
+
+C:\Users\feispepaulino>cd Documents
+
+C:\Users\feispepaulino\Documents>dir
+ O volume na unidade C é OS
+ O Número de Série do Volume é CE4B-2078
+
+ Pasta de C:\Users\feispepaulino\Documents
+
+05/05/2026  14:32    <DIR>          .
+24/02/2026  13:29    <DIR>          ..
+30/04/2026  16:47    <DIR>          algoritmos
+05/05/2026  14:31    <DIR>          Full Stack
+02/03/2026  17:37    <DIR>          Modelagem Matemática
+09/03/2026  16:54    <DIR>          Modelos Personalizados do Office
+05/05/2026  14:32    <DIR>          servidor
+05/05/2026  14:20    <DIR>          servidor - Copia
+               0 arquivo(s)              0 bytes
+               8 pasta(s)   539.200.462.848 bytes disponíveis
+
+C:\Users\feispepaulino\Documents>cd "Full Stack"
+
+C:\Users\feispepaulino\Documents\Full Stack>dir
+ O volume na unidade C é OS
+ O Número de Série do Volume é CE4B-2078
+
+ Pasta de C:\Users\feispepaulino\Documents\Full Stack
+
+05/05/2026  14:31    <DIR>          .
+05/05/2026  14:32    <DIR>          ..
+05/05/2026  14:00    <DIR>          Aula 10
+03/03/2026  16:57    <DIR>          Aula 3
+10/03/2026  16:51    <DIR>          Aula 4
+17/03/2026  16:58    <DIR>          Aula 5
+07/04/2026  16:16    <DIR>          Aula 7
+14/04/2026  15:07    <DIR>          Aula 8
+28/04/2026  14:07    <DIR>          Aula 9
+17/03/2026  14:12    <DIR>          Aula1
+24/03/2026  13:49    <DIR>          Aula2
+07/04/2026  13:48    <DIR>          prova
+24/03/2026  13:49    <DIR>          roteiro
+05/05/2026  14:22    <DIR>          servidor
+               0 arquivo(s)              0 bytes
+              14 pasta(s)   539.200.274.432 bytes disponíveis
+
+C:\Users\feispepaulino\Documents\Full Stack>cd servidor
+
+C:\Users\feispepaulino\Documents\Full Stack\servidor>node servidor.js
+Servidor rodando ...
+
