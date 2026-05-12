@@ -1,0 +1,26 @@
+# LAB 8 - Servidor: Get, Post e Template
+
+## Como rodar
+
+```bash
+npm install
+node server.js
+```
+
+Acesse no navegador: `http://localhost`
+
+## Rotas
+
+| Rota | Método | Descrição |
+|------|--------|-----------|
+| `/` | GET | Página de Projetos |
+| `/cadastra` | GET | Formulário de Cadastro |
+| `/cadastra` | POST | Processa o cadastro |
+| `/login` | GET | Formulário de Login |
+| `/login` | POST | Processa o login |
+
+## Tecnologias
+
+- Node.js
+- Express
+- EJS (template engine)

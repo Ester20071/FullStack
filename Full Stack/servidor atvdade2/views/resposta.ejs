@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resposta</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="resposta-container">
+
+    <div class="card-resposta">
+        <h2 class="<%= sucesso ? 'sucesso' : 'erro' %>">
+            <%= status %>
+        </h2>
+        <p><%= mensagem %></p>
+
+        <% if (sucesso) { %>
+            <a href="/">Ir para Projetos</a>
+        <% } else { %>
+            <a href="/login">Tentar novamente</a>
+        <% } %>
+    </div>
+
+</body>
+</html>
