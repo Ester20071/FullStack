@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Adivinhação</title>
+  <style>
+    body {
+      background-color: #d6eaff;
+      text-align: center;
+    }
+ 
+    h1 {
+      margin-top: 60px;
+    }
+ 
+    #caixa {
+      margin-top: 30px;
+    }
+ 
+    #mensagem {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+ 
+  <h1>Jogo de Adivinhação</h1>
+  <p>Tente adivinhar o número entre 0 e 99!</p>
+ 
+  <div id="caixa">
+    <input type="number" id="entrada" placeholder="Digite um número" />
+    <button onclick="verificar()">Tentar</button>
+  </div>
+ 
+  <p id="mensagem"></p>
+ 
+  <script>
+    var numero = Math.floor(Math.random() * 100);
+ 
+    function verificar() {
+      var chute = parseInt(document.getElementById("entrada").value);
+      var mensagem = document.getElementById("mensagem");
+ 
+      if (chute < numero) {
+        mensagem.textContent = "Muito baixo! Tente um número maior.";
+        document.getElementById("caixa").style.setProperty("background-color", "red");
+      } else if (chute > numero) {
+        mensagem.textContent = "Muito alto! Tente um número menor.";
+        document.getElementById("caixa").style.setProperty("background-color", "red");
+      } else {
+        mensagem.textContent = "Parabéns! Você acertou!";
+        document.getElementById("caixa").style.setProperty("background-color", "green");
+      }
+    }
+  </script>
+ 
+</body>
+</html>
