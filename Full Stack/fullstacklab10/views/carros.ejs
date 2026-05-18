@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carros Disponíveis</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Carros Disponíveis</h1>
+        <a href="/gerenciar_carros"><button>Gerenciar Carros</button></a>
+
+        <div class="lista-carros">
+            <% if (listaCarros.length == 0) { %>
+                <p>Nenhum carro cadastrado ainda.</p>
+            <% } else { %>
+                <% for (var i = 0; i < listaCarros.length; i++) { %>
+                    <div class="carro">
+                        <h2><%= listaCarros[i].marca %> - <%= listaCarros[i].modelo %></h2>
+                        <p>Ano: <%= listaCarros[i].ano %></p>
+                        <% if (listaCarros[i].qtde_disponivel == 0) { %>
+                            <p class="esgotado">Esgotado</p>
+                        <% } else { %>
+                            <p>Quantidade: <%= listaCarros[i].qtde_disponivel %></p>
+                        <% } %>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

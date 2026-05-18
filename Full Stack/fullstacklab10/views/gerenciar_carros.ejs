@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Carros</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciar Carros</h1>
+        <a href="/carros"><button>Ver Listagem</button></a>
+
+        <!-- Cadastrar novo carro -->
+        <div class="secao">
+            <h2>Cadastrar Novo Carro</h2>
+            <form action="/cadastrar_carro" method="POST" class="form-inline">
+                <input type="text" name="marca" placeholder="Marca" required>
+                <input type="text" name="modelo" placeholder="Modelo" required>
+                <input type="text" name="ano" placeholder="Ano" required>
+                <input type="number" name="qtde_disponivel" placeholder="Quantidade" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+
+        <!-- Lista de carros para gerenciar -->
+        <div class="secao">
+            <h2>Carros Cadastrados</h2>
+            <% if (listaCarros.length == 0) { %>
+                <p>Nenhum carro cadastrado ainda.</p>
+            <% } else { %>
+                <% for (var i = 0; i < listaCarros.length; i++) { %>
+                    <div class="carro">
+                        <h3><%= listaCarros[i].marca %> - <%= listaCarros[i].modelo %> (<%= listaCarros[i].ano %>)</h3>
+                        <% if (listaCarros[i].qtde_disponivel == 0) { %>
+                            <p class="esgotado">Esgotado</p>
+                        <% } else { %>
+                            <p>Quantidade: <%= listaCarros[i].qtde_disponivel %></p>
+                        <% } %>
+
+                        <!-- Vender -->
+                        <form action="/vender_carro" method="POST" style="display:inline">
+                            <input type="hidden" name="id" value="<%= listaCarros[i]._id %>">
+                            <button type="submit" <%= listaCarros[i].qtde_disponivel == 0 ? 'disabled' : '' %>>Vender</button>
+                        </form>
+
+                        <!-- Remover -->
+                        <form action="/remover_carro" method="POST" style="display:inline">
+                            <input type="hidden" name="id" value="<%= listaCarros[i]._id %>">
+                            <button type="submit">Remover</button>
+                        </form>
+
+                        <!-- Atualizar -->
+                        <form action="/atualizar_carro" method="POST" class="form-atualizar">
+                            <input type="hidden" name="id" value="<%= listaCarros[i]._id %>">
+                            <input type="text" name="marca" value="<%= listaCarros[i].marca %>" required>
+                            <input type="text" name="modelo" value="<%= listaCarros[i].modelo %>" required>
+                            <input type="text" name="ano" value="<%= listaCarros[i].ano %>" required>
+                            <input type="number" name="qtde_disponivel" value="<%= listaCarros[i].qtde_disponivel %>" required>
+                            <button type="submit">Atualizar</button>
+                        </form>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
