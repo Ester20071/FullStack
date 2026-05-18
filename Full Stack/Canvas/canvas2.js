@@ -38,17 +38,10 @@ const ctx    = canvas.getContext('2d');
       ctx.fillText(texto, x, y);
     }
 
-    /*Base*/
-    const W  = 300;
-    const H  = 300;
-    const CX = 150;
-    const CY = 150;
-
     // Fundo branco
-    desenhar_quadrado(0, 0, W, H, 'white');
+    desenhar_quadrado(0, 0, 300, 300, 'white');
 
-    // Linha horizontal verde 
-    desenhar_linha(0, CY, W, CY, 'green', 1.5);
+   
 
     // QUADRANTE SUPERIOR
 
@@ -59,56 +52,62 @@ const ctx    = canvas.getContext('2d');
     desenhar_quadrado(254, 0, 46, 40, 'red');
 
     // Diagonal azul
-    desenhar_linha(46, 40, CX, CY, 'blue', 1.2);
+    desenhar_linha(46, 40, 150, 150, 'blue', 1.2);
 
     // Diagonal vermelha
-    desenhar_linha(254, 40, CX, CY, 'red', 1.2);
+    desenhar_linha(254, 40, 150, 150, 'red', 1.2);
 
     //  Arco verde 1
-    desenhar_arco(CX, CY, 88, Math.PI, Math.PI * 1.5, '#00aa00');
+    desenhar_arco(150, 150, 88, Math.PI, Math.PI * 1.25, '#00aa00');
 
     // Arco verde 2
-    desenhar_arco(CX, CY, 88, Math.PI * 1.5, 0, '#00aa00');
+    desenhar_arco(150, 150, 88, -Math.PI / 4, 0, '#00aa00');
 
     // Arco verde interno 1
-    desenhar_arco(CX, CY, 62, Math.PI, Math.PI * 1.5, '#00aa00');
+    desenhar_arco(150, 150, 62, Math.PI*1, Math.PI * 1.5, '#00aa00');
 
     // Arco verde interno 2
-    desenhar_arco(CX, CY, 62, Math.PI * 1.5, 0, '#00aa00');
+    desenhar_arco(150, 150, 62, Math.PI * 1.5, 0, '#00aa00');
 
     // Bola verde agua 
-    desenhar_arco(CX, CY - 33, 13, 0, Math.PI * 2, 'cyan', true);
+    desenhar_arco(150, 150 - 33, 13, 0, Math.PI * 2, 'cyan', true);
     // Contorno azul escuro
-    desenhar_arco(CX, CY - 33, 13, 0, Math.PI * 2, '#00008B', false);
+    desenhar_arco(150, 150 - 33, 13, 0, Math.PI * 2, '#00008B', false);
 
     // Quadrados verde agua laterais centrados na linha horizontal
     desenhar_quadrado(0, 127, 26, 46, 'cyan');
-    desenhar_quadrado(274, 127, 26, 46, 'cyan');
+    desenhar_quadrado(274, 135, 26, 30, 'cyan');
+     // Linha horizontal verde 
+    desenhar_linha(0, 150, 300, 150, 'green', 1.5);
 
     //  QUADRANTE INFERIOR
 
     // Linha vertical preta 
-    desenhar_linha(CX, CY, CX, H - 55, 'black', 1.5);
+    desenhar_linha(150, 150, 150, 300 - 55, 'black', 1.5);
 
     //  Semicírculo verde agua  
-    desenhar_arco(CX, H, 55, Math.PI, 0, 'cyan', true);
+    desenhar_arco(150, 300, 55, Math.PI, 0, 'cyan', true);
 
     //  Arco de linha verde
-    desenhar_arco(CX, H, 55, Math.PI, 0, '#00aa00', false);
+    desenhar_arco(150, 300, 55, Math.PI, 0, 'green', false);
 
-    //  Arco azul interno (raio 75) 
-    desenhar_arco(CX, H, 75, Math.PI, 0, 'blue', false);
-    //  Arco azul (raio 95)
-    desenhar_arco(CX, H, 95, 0, Math.PI, 'blue', false);
+    //  Arco verde de baixo
+    desenhar_arco(150, 300, 88, Math.PI, Math.PI * 1.5, '#00aa00');
+
+    // Arco verde de baixo
+    desenhar_arco(150, 300, 72, Math.PI * 1.5, Math.PI * 2, '#00aa00');
+
 
     //  Bola amarela 
     desenhar_arco(75, 210, 22, 0, Math.PI * 2, 'yellow', true);
-
+    // Contorno verde
+    desenhar_arco(75, 210, 22, 0, Math.PI * 2, 'green');
     //  Bola amarela 
     desenhar_arco(225, 210, 22, 0, Math.PI * 2, 'yellow', true);
-
+    // Contorno verde
+    desenhar_arco(225, 210, 22, 0, Math.PI * 2, 'green');
     // 20. Quadrado vermelho 
-    desenhar_quadrado(CX - 44, CY, 44, 38, 'red');
+    desenhar_quadrado(150 - 44, 150, 44, 38, 'red');
 
     // 21. L amarelo 
     desenhar_quadrado(0, 252, 20, 48, 'yellow');
@@ -124,4 +123,4 @@ const ctx    = canvas.getContext('2d');
     // Borda preta ao redor do canvas
     ctx.strokeStyle = 'black';
     ctx.lineWidth   = 2;
-    ctx.strokeRect(0, 0, W, H);
+    ctx.strokeRect(0, 0, 300, 300);
