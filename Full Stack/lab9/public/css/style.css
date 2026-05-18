@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a2e;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Página de projetos e blog */
+.container {
+    width: 600px;
+    margin: 40px auto;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.topo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 8px 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+/* Posts */
+.lista-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.post h2 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.post p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Tabela de projetos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #ddd;
+}
+
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+/* Formulário de cadastro */
+.container-form {
+    width: 350px;
+    margin: 60px auto;
+    background-color: #f0f0f0;
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-form h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.container-form form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+.container-form label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.container-form input {
+    padding: 6px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.container-form button {
+    margin-top: 10px;
+    width: 80px;
+    align-self: center;
+}
+
+.container-form > a {
+    margin-top: 15px;
+    font-size: 13px;
+}
