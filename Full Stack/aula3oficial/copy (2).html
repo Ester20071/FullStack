@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ e Java</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: lightgray;
+      font-family: sans-serif;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: bisque;
+      border: 2px solid darkgreen;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+
+    header img.logo-left {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      color: darkgreen;
+      font-family: sans-serif;
+      font-size: 2.2em;
+      text-align: center;
+      flex: 1;
+    }
+
+    header img.logo-right {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      background-color: lightskyblue;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      padding: 12px 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: darkred;
+      font-weight: bold;
+      font-family: sans-serif;
+      font-size: 0.95em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 30px;
+    }
+
+    /* ===== INTRODUCTION SECTION ===== */
+    #introducao {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #introducao h2 {
+      font-family: sans-serif;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      color: black;
+    }
+
+    #introducao p {
+      font-family: SansSerif, sans-serif;
+      font-size: 20pt;
+      text-align: center;
+      margin-bottom: 15px;
+      color: black;
+      line-height: 1.5;
+    }
+
+    /* ===== BOOKS SECTION ===== */
+    #livros {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #livros h2 {
+      font-family: sans-serif;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      color: black;
+    }
+
+    .books-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .books-container img {
+      height: 200px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* ===== VIDEOS / MAP SECTION ===== */
+    #videos {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #videos h2 {
+      font-family: sans-serif;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      color: black;
+    }
+
+    .media-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .media-container iframe {
+      width: 380px;
+      height: 250px;
+      border: none;
+    }
+
+    /* ===== CONTACTS SECTION ===== */
+    #contatos {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #contatos h2 {
+      font-family: sans-serif;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      color: black;
+    }
+
+    table {
+      margin: 0 auto 15px auto;
+      border-color: red;
+      border-style: dashed;
+      border-width: 2px;
+    }
+
+    table th {
+      color: red;
+      font-family: sans-serif;
+      font-weight: bold;
+      padding: 8px 30px;
+      border-color: red;
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    table td {
+      padding: 8px 30px;
+      border-color: red;
+      border-style: solid;
+      border-width: 1px;
+      color: black;
+      font-family: sans-serif;
+    }
+
+    /* ===== SITES BOX ===== */
+    .sites-box {
+      background-color: yellow;
+      border: 2px solid black;
+      display: inline-block;
+      text-align: left;
+      padding: 10px 20px;
+      margin-top: 10px;
+    }
+
+    .sites-box p {
+      color: darkred;
+      font-family: sans-serif;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .sites-box ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    .sites-box ul li {
+      color: black;
+      font-family: sans-serif;
+      margin-bottom: 3px;
+    }
+
+    .sites-box ul li a {
+      color: indigo;
+      text-decoration: none;
+    }
+
+    .sites-box ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: bisque;
+      border-top: 2px solid darkgreen;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      text-align: center;
+    }
+
+    footer img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+
+    footer .footer-text {
+      flex: 1;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 15pt;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img class="logo-left" src="c++ (1).png" alt="C++ Logo">
+    <h1>C++ e Java</h1>
+    <img class="logo-right" src="java (1).png" alt="Java Logo">
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#introducao">HOME</a>
+    <a href="#livros">LIVROS</a>
+    <a href="#videos">VÍDEOS</a>
+    <a href="#contatos">CONTATOS</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- INTRODUÇÃO -->
+    <section id="introducao">
+      <h2>Introdução</h2>
+
+      <p>C++ (em português: lê-se "cê mais mais", em inglês lê-se see plus plus) é uma linguagem de programação compilada multi-paradigma (seu suporte inclui linguagem imperativa, orientada a objetos e genérica) e de uso geral. Desde os anos 1990 é uma das linguagens comerciais mais populares, sendo bastante usada também na academia por seu grande desempenho e base de utilizadores. (Fonte Usada: SansSerif, tamanho 20pt)</p>
+
+      <p>Java é uma linguagem de programação orientada a objetos desenvolvida na década de 90 por uma equipe de programadores chefiada por James Gosling, na empresa Sun Microsystems. Em 2008 o Java foi adquirido pela empresa Oracle Corporation. (Fonte Usada: SansSerif, tamanho 20pt)</p>
+
+      <p>Java foi desenvolvida por um grupo de pesquisadores da SUN Microsystems por volta de 1990, pouco antes da explosão da Internet. Essa linguagem possui estrutura muito semelhante à da linguagem C, da qual descende imediatamente. Java tem em comum com a linguagem C++ o fato de ser orientada a objetos e mantém com esta uma alto grau de semelhança. (Fonte Usada: SansSerif, tamanho 20pt)</p>
+    </section>
+
+    <!-- LIVROS -->
+    <section id="livros">
+      <h2>Livros</h2>
+      <div class="books-container">
+        <img src="book1.jpg" alt="Projeto de Algoritmos">
+        <img src="book2.jpg" alt="The C++ Programming Language">
+        <img src="book3.jpg" alt="Java Como Programar">
+      </div>
+    </section>
+
+    <!-- VÍDEOS -->
+    <section id="videos">
+      <h2>Aprenda a programar com Java e C++ na FEI.</h2>
+      <div class="media-container">
+        <iframe src="https://www.youtube.com/embed/4MHAOPxcnsQ"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.648556785657!2d-46.581586585019195!3d-23.724241184602274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce4158ef9c7c05%3A0x776b798985695f52!2sCentro%20Universit%C3%A1rio%20FEI%20-%20Campus%20S%C3%A3o%20Bernardo%20do%20Campo!5e0!3m2!1spt-BR!2sbr!4v1630280666216!5m2!1spt-BR!2sbr"
+          allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- CONTATOS -->
+    <section id="contatos">
+      <h2>Contatos</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prof. Dr. Fagner Pimentel</td>
+            <td>fpimentel@fei.edu.br</td>
+          </tr>
+          <tr>
+            <td>Prof. Dr. Isaac Jesus da Silva</td>
+            <td>isaacjesus@fei.edu.br</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sites-box">
+        <p>Sites para consulta:</p>
+        <ul>
+          <li>HTML - <a href="https://www.w3schools.com/html/" target="_blank">https://www.w3schools.com/html/</a></li>
+          <li>CSS - <a href="https://www.w3schools.com/css/" target="_blank">https://www.w3schools.com/css/</a></li>
+          <li>JavaScript - <a href="https://www.w3schools.com/js/" target="_blank">https://www.w3schools.com/js/</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="html (1).png" alt="HTML5 Logo">
+    <div class="footer-text">
+      <p>Desejamos um excelente semestre a todos.</p>
+      <p>(Fonte Usada: Comic Sans MS, tamanho 15pt)</p>
+    </div>
+    <img src="css.png" alt="CSS3 Logo">
+  </footer>
+
+</body>
+</html>
