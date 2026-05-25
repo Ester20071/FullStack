@@ -1,0 +1,60 @@
+<%# Trocar o nome da página animais-lista.ejs - exemplo %>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <%# TROCAR O TITULO DA PAGINA %>
+  <title>Carros Disponíveis</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <%# TROCAR O TITULO TBM %>
+    <h1>Carros Disponíveis</h1>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/usuarios/login">Login</a>
+      <%# TROCAR os links do nav (/carros → /animais) e esse 'titulo' - que é o da barra de navegacao do lado do login%>
+      <a href="/carros/gerencia">Gerenciar Carros</a>
+    </nav>
+
+    <table>
+      <thead>
+        <tr>
+          <%# TROCAR esses cabecalhos - menos talvez o status e qtde %>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Ano</th>
+          <th>Quantidade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%# TROCAR carros.forEach(carros..) por animais.forEach(animal...)  exemplo  a linha abaixo nao é um comentario%>
+        <% carros.forEach(carro => { %>
+          <tr>
+            <%# TROCAR carro por animal por exemplo %>
+            <td><%= carro.marca %></td>
+            <td><%= carro.modelo %></td>
+            <td><%= carro.ano %></td>
+            <td><%= carro.qtde_disponivel %></td>
+            <td>
+              <%# TROCAR carro por animal por exemplo tbm %>
+              <% if (carro.qtde_disponivel === 0) { %>
+                <span class="esgotado">Esgotado</span>
+              <% } else { %>
+                <span class="disponivel">Disponível</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <%# TROCAR carro por animal por exemplo - a linha de baixo nn é comentario!%>
+    <% if (carros.length === 0) { %>
+      <p>Nenhum carro cadastrado ainda.</p>
+    <% } %>
+  </div>
+</body>
+</html>

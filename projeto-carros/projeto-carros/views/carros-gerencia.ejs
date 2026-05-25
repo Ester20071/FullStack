@@ -1,0 +1,113 @@
+<%# TROCAR o nome do arquivo para animais-gerencia.ejs %>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <%# TROCAR o titulo %>
+  <title>Gerência de Carros</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <%# TROCAR o titulo %>
+    <h1>Gerência de Carros</h1>
+    <nav>
+      <a href="/">Início</a>
+      <%# TROCAR o nome d/carros para /animais %>
+      <a href="/carros">Ver Listagem</a>
+      <a href="/usuarios/logout">Sair</a>
+    </nav>
+
+    <% if (mensagem) { %>
+      <p class="mensagem"><%= mensagem %></p>
+    <% } %>
+
+    <!-- Formulário de cadastro de novo carro - EM gerencia de carros -->
+    <div class="card">
+      <%# TROCAR o nome Novo Carro por outra coisa %>
+      <h2>Cadastrar Novo Carro</h2>
+      <form action="/carros/cadastrar" method="POST">
+        <%# TROCAR se nao tiver mais marca e os outros se nao tiver mais trocar tbm %>
+        <label>Marca:</label>
+        <input type="text" name="marca" required>
+
+        <label>Modelo:</label>
+        <input type="text" name="modelo" required>
+
+        <label>Ano:</label>
+        <input type="number" name="ano" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" required min="0">
+        
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    <!-- Listagem com opções de gerência -->
+    <div class="card">
+      <%# TROCAR o nome Carros Cadastrados por outra coisa %>
+      <h2>Carros Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <%# TROCAR se alterou algum  %>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Qtde</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%# TROCAR carros por animais por exemplo %>
+          <% carros.forEach(carro => { %>
+            <tr>
+              <%# TROCAR carro. por animal. e tbm tem que trocar marca modelo etc por exemplo%>
+              <td><%= carro.marca %></td>
+              <td><%= carro.modelo %></td>
+              <td><%= carro.ano %></td>
+              <td><%= carro.qtde_disponivel %></td>
+              <td>
+                <%# TROCAR carro por outra coisa o de baixo nao e comentario  %>
+                <% if (carro.qtde_disponivel === 0) { %>
+                  <span class="esgotado">Esgotado</span>
+                <% } else { %>
+                  <span class="disponivel">Disponível</span>
+                <% } %>
+              </td>
+              <td class="acoes">
+                <!-- Editar -->
+                 <%# TROCAR /carros/ por /animais/ por exemplo %>
+                <a href="/carros/editar/<%= carro._id %>" class="btn btn-editar">Editar</a>
+
+                <!-- Vender -->
+                 <%# TROCAR /carros/ por /animais/ e tbm carro.qtde por animal %>
+                <form action="/carros/vender/<%= carro._id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-vender"
+                    <% if (carro.qtde_disponivel === 0) { %> disabled <% } %>>
+                    Vender
+                  </button>
+                </form>
+
+                <!-- Remover -->
+                 <%# TROCAR /carro/ por /animais/ %>
+                <form action="/carros/remover/<%= carro._id %>" method="POST" style="display:inline;"
+                  onsubmit="return confirm('Tem certeza que quer remover este carro?')">
+                  <button type="submit" class="btn btn-remover">Remover</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <%# TROCAR carros  %>
+      <% if (carros.length === 0) { %>
+        <p>Nenhum carro cadastrado ainda.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

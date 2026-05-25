@@ -1,0 +1,45 @@
+<%# TROCAR o nome do arquivo para  animal-editar.ejs%>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <%# TROCAR o titulo%>
+  <title>Editar Carro</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <%# TROCAR o titulo%>
+    <h1>Editar Carro</h1>
+    <nav>
+      <%# TROCAR /carro/ por /animal/ %>
+      <a href="/carros/gerencia">Voltar para Gerência</a>
+    </nav>
+
+    <% if (mensagem) { %>
+      <p class="mensagem"><%= mensagem %></p>
+    <% } %>
+
+    <div class="card">
+      <%# TROCAR /carros/atualizar/ → /animais/atualizar/%>
+      <form action="/carros/atualizar/<%= carro._id %>" method="POST">
+        <label>Marca:</label>
+        <%# TROCAR os campos do formulário (name="marca" → name="nome") se decidiu colocar algo na marca que nao seja marca e tbm muda carro%>
+        <input type="text" name="marca" value="<%= carro.marca %>" required>
+
+        <label>Modelo:</label>
+        <%# TROCAR os campos do formulário (name="modelo" → name="nome") se colocou algo no lugar do modelo e muda carro faz omsm para os outros%>
+        <input type="text" name="modelo" value="<%= carro.modelo %>" required>
+
+        <label>Ano:</label>
+        <input type="number" name="ano" value="<%= carro.ano %>" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" value="<%= carro.qtde_disponivel %>" required min="0">
+
+        <button type="submit">Salvar Alterações</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

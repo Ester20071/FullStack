@@ -1,0 +1,16 @@
+{
+  "name": "projeto-carros",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de venda de carros",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3",
+    "bcryptjs": "^2.4.3",
+    "express-session": "^1.17.3"
+  }
+}

@@ -1,0 +1,1804 @@
+No server.js
+const app = express();
+
+// Conexão com o MongoDB - TROCAR pelo nome que quiser o concessionaria -> petshop --- nao implica em nada
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+  .then(() => console.log('Conectado ao MongoDB!'))
+  .catch(err => console.log('Erro ao conectar:', err));
+//configuracoes 
+-----------------------------------------------------------------------------------------------
+// ANTES
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+
+// DEPOIS — cola a string e troca <db_password> pela sua senha
+mongoose.connect('mongodb+srv://ester:SUA_SENHA_AQUI@cluster0.vkwsusp.mongodb.net/concessionaria')
+
+mongoose.connect('mongodb+srv://ester:senha123@cluster0.vkwsusp.mongodb.net/concessionaria')
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Se puder usar internet na prova
+Só coloca a string do Atlas no server.js e pronto:
+mongoose.connect('mongodb+srv://ester:senha123@cluster0.vkwsusp.mongodb.net/concessionaria')
+Sistema de gerenciamento de venda de carrosClaude terminou a respostaVocê disse: LAB 10 - BD - Update e DeleteLAB 10 - BD - Update e DeleteEntrega: A entrega dessa atividade deve ser um link do github.
+Objetivo: Desenvolver um sistema de gerenciamento de venda de carros.HTML: Atualize o seu site:(valor 0.5) - Adicione uma linha na tabela da página ‘Projects.html’ com o nome ‘Carros’ e o link para a  nova página.(valor 1.5) - Crie as páginas de gerência do site:Página de cadastro do usuárioPágina de login de usuárioPágina de listagem dos carros disponíveisPágina de gerencia dos carrosCadastrar novo carroRemover carroAtualizar carroVender carro (Ao clicar em vender, a quantidade do carro selecionado é decrementado no banco de dados. Deverá ter um aviso de ‘Esgotado’, caso a quantidade seja igual a zero.)CSS: Aplique algumas regras de css nas novas páginas.(valor 0.5) - Cor do fundo.(valor 0.5) - Centralização dos elementos da página.Node.js: Desenvolver uma aplicação Web para o blog(valor 0.5) - O seu servidor deve funcionar utilizando a porta 80.(valor 0.5) - O endereço padrão do servidor (‘/’) deve direcionar para a página de projetos.EJS: Desenvolver e servir páginas dinâmica com EJS(valor 1.0) - Determine quais são as páginas que precisam apresentar conteúdo dinâmico com as informações do banco de dados.BD:(valor 1.0) - Criar duas coleções no banco de dadosUsuarios:NomeLoginSenhaCarrosMarcaModeloAnoQtde_disponivelUtilize o javaScript para usar as operações básicas do banco de dados(valor 1.0) - Create(valor 1.0) - Read(valor 1.0) - Update(valor 1.0) - DeleteObs: Outras penalidades podem ser aplicadas
+Preciso fazer isso e preciso tirar 10 mas precisa ser simples pq não tenho conhecimento avançado nem um pouco e precisa e parecer que fui eu que fizMostrar menos12 de mai.Claude respondeu: Vou criar o projeto completo para você.Vou criar o projeto completo para você. Deixa eu verificar as instruções e montar tudo de forma simples e organizada.Check skills availableCheck skills availableAgora vou criar todo o projeto. Será uma aplicação Node.js completa com MongoDB.Criou 6 arquivos, executou um comandoCriou 6 arquivos, executou um comandoAgora vou criar todas as páginas EJS:Criou 8 arquivos, executou 2 comandos, leu um arquivoCriou 8 arquivos, executou 2 comandos, leu um arquivoProjeto completo! Aqui está tudo que foi criado para você tirar 10:
+
+Estrutura do projeto
+projeto-carros/
+├── server.js          ← servidor na porta 80
+├── package.json
+├── models/
+│   ├── Usuario.js     ← coleção usuários (nome, login, senha)
+│   └── Carro.js       ← coleção carros (marca, modelo, ano, qtde)
+├── routes/
+│   ├── usuarios.js    ← cadastro + login
+│   └── carros.js      ← CRUD completo
+├── views/             ← páginas EJS dinâmicas
+│   ├── projects.ejs
+│   ├── cadastro.ejs
+│   ├── login.ejs
+│   ├── carros-lista.ejs
+│   ├── carros-gerencia.ejs
+│   └── carro-editar.ejs
+└── public/css/
+    └── style.css      ← fundo escuro + centralização
+Como subir no GitHub
+
+Baixe o zip, extraia a pasta
+Abra o terminal dentro da pasta projeto-carros
+Execute:
+
+bashgit init
+git add .
+git commit -m "Lab 10 - Sistema de carros"
+git remote add origin https://github.com/SEU_USUARIO/SEU_REPO.git
+git push -u origin main
+Antes de rodar
+Precisa ter o MongoDB rodando na máquina. Aí:
+bashnpm install
+sudo node server.js   # sudo por causa da porta 80
+Acesse http://localhost e vai abrir direto na página de projetos com o link para o sistema de carros.Projeto carrosZIP BaixarVocê disse: meu professor disse que a prova sera igual a essa atividade e eu nao sei fazer e nem alterar nada se precisar, tipo se precisar adicionar algo ou mudar o topic…meu professor disse que a prova sera igual a essa atividade e eu nao sei fazer e nem alterar nada se precisar, tipo se precisar adicionar algo ou mudar o topico onde eu mudo/mecho pq eu n sei10:24Claude respondeu: Entendo!Entendo! Vou te explicar de forma bem simples onde mexer em cada situação que pode cair na prova.
+
+🗂️ Os arquivos mais importantes
+server.js → configura o servidor (porta, conexão com banco)
+routes/carros.js → lógica dos carros (cadastrar, editar, remover, vender)
+routes/usuarios.js → lógica de login e cadastro
+models/Carro.js → campos do banco de dados do carro
+models/Usuario.js → campos do banco de dados do usuário
+views/*.ejs → as páginas HTML que o usuário vê
+
+🔧 Situações que podem cair na prova
+"Adicione um campo novo no carro" (ex: cor, preço)
+→ Mexe em 2 lugares:
+
+models/Carro.js — adiciona o campo
+views/carros-gerencia.ejs e views/carro-editar.ejs — adiciona o input no formulário
+
+Exemplo — adicionar campo preco:
+js// models/Carro.js — adiciona essa linha dentro do schema
+preco: { type: Number, required: true }
+html<!-- No formulário do .ejs — adiciona isso -->
+<label>Preço:</label>
+<input type="number" name="preco" required>
+
+"Mude o nome de uma coleção" (ex: Carros → Veiculos)
+→ Mexe só em models/Carro.js, última linha:
+js// Troca 'Carro' pelo nome novo
+module.exports = mongoose.model('Veiculo', carroSchema);
+
+"Adicione uma nova página" (ex: página de contato)
+→ Cria um arquivo novo em views/contato.ejs e adiciona uma rota no server.js:
+jsapp.get('/contato', (req, res) => {
+  res.render('contato');
+});
+
+"Mude a porta do servidor"
+→ Mexe só em server.js, última linha:
+jsapp.listen(3000, ...) // troca o número
+
+"Mude a cor de fundo ou o visual"
+→ Mexe só em public/css/style.css:
+cssbody {
+  background-color: #ffffff; /* troca a cor aqui */
+}
+
+"Adicione um campo novo no usuário" (ex: email)
+→ Mexe em 2 lugares:
+
+models/Usuario.js — adiciona o campo
+views/cadastro.ejs — adiciona o input
+
+
+"Mude o banco de dados (nome do banco)"
+→ Mexe em server.js, na linha do mongoose.connect:
+js// Troca 'concessionaria' pelo nome que quiser
+mongoose.connect('mongodb://localhost:27017/nomedobanco')
+
+A regra geral é:
+
+Visual/HTML → pasta views/
+Lógica/ações → pasta routes/
+Campos do banco → pasta models/
+Configuração geral → server.js
+Estilo → public/css/style.css
+
+Se cair algo diferente na prova me manda aqui que eu te digo exatamente onde mexer!Você disse: como eu faco funcionar se estiver na pasta documentscomo eu faco funcionar se estiver na pasta documents11:33Claude respondeu: Como rodar o projeto pela primeira vezComo rodar o projeto pela primeira vez
+1. Instala o Node.js (se não tiver)
+Baixa em nodejs.org e instala normalmente.
+2. Instala o MongoDB (se não tiver)
+Baixa em mongodb.com/try/download/community e instala.
+Depois de instalar, abre o Services do Windows (pressiona Win + R, digita services.msc) e verifica se o MongoDB está rodando.
+
+3. Roda o projeto
+Abre o Prompt de Comando (CMD) — pressiona Win + R, digita cmd.
+Depois digita os comandos um por um:
+bashcd Documents\projeto-carros
+bashnpm install
+bashnode server.js
+Se aparecer erro de permissão na porta 80, usa essa alternativa — abre o arquivo server.js e troca a última parte:
+jsapp.listen(3000, () => {   // troca 80 por 3000
+E acessa no navegador: http://localhost:3000
+Se a porta 80 funcionar, acessa: http://localhost
+
+Resumo visual
+1. Abre o CMD
+2. cd Documents\projeto-carros
+3. npm install        ← só na primeira vez
+4. node server.js     ← toda vez que quiser rodar
+5. Abre o navegador → http://localhost ou http://localhost:3000
+Qualquer erro que aparecer no CMD me manda aqui que eu resolvo!Você disse: PS C:\Users\Lenovo> cd Documents\projeto-carrosPS C:\Users\Lenovo> cd Documents\projeto-carros
+PS C:\Users\Lenovo\Documents\projeto-carros> npm install
+npm error code ENOENT
+npm error syscall open
+npm error path C:\Users\Lenovo\Documents\projeto-carros\package.json
+npm error errno -4058
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\Users\Lenovo\Documents\projeto-carros\package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: C:\Users\Lenovo\AppData\Local\npm-cache\_logs\2026-05-24T14_37_01_849Z-debug-0.log
+PS C:\Users\Lenovo\Documents\projeto-carros>Mostrar mais11:37Claude respondeu: O erro é que a pasta não tem os arquivos dentro.O erro é que a pasta não tem os arquivos dentro. Provavelmente o zip foi extraído errado e criou uma pasta dentro de outra.
+Digita isso no CMD para ver o que tem dentro:
+bashdir
+Me manda o que aparecer. Mas o mais provável é isso:
+
+Solução mais comum
+A pasta está assim:
+Documents\projeto-carros\projeto-carros\  ← pasta duplicada
+Então tenta entrar uma pasta a mais:
+bashcd projeto-carros
+bashnpm install
+
+Se não funcionar — verifica onde estão os arquivos
+Abre o Explorador de Arquivos do Windows e navega até:
+Documents → projeto-carros
+Dentro dessa pasta você deve ver esses arquivos:
+📄 server.js
+📄 package.json
+📁 views
+📁 routes
+📁 models
+📁 public
+Se estiver tudo dentro de outra pasta chamada projeto-carros, entra nela pelo CMD:
+bashcd projeto-carros
+npm install
+Me manda o resultado do dir que eu te digo exatamente o que fazer!Você disse: mas como eu faco do zero se estiver em duas pastasmas como eu faco do zero se estiver em duas pastas11:39Claude respondeu: Abre o Explorador de Arquivos e navega até encontrar a pasta que tem o server.Abre o Explorador de Arquivos e navega até encontrar a pasta que tem o server.js dentro. Quando achar, clica na barra de endereço lá em cima e copia o caminho:
+![barra de endereço]
+Aí no CMD digita:
+bashcd COLA_O_CAMINHO_AQUI
+Por exemplo, se o caminho for C:\Users\Lenovo\Documents\projeto-carros\projeto-carros:
+bashcd C:\Users\Lenovo\Documents\projeto-carros\projeto-carros
+bashnpm install
+bashnode server.js
+
+A dica mais fácil é: onde estiver o server.js, é lá que você tem que estar no CMD. Esse arquivo é o coração do projeto, tudo roda a partir dele.
+Me manda o caminho que aparece na barra de endereço que eu te digo o comando exato!Você disse: agora me ensine o que cada coisa ffaz no codigo para eu conseguir alterar, me ensine passo a passo cada detalhe para eu tirar 10, e me ensine tudo mesmo por ex…agora me ensine o que cada coisa ffaz no codigo para eu conseguir alterar, me ensine passo a passo cada detalhe para eu tirar 10, e me ensine tudo mesmo por exemplo se eu nao quiser que seja um sistema de carros mas sim de pet shop por exemplo eu tenho que saber alterar12:50Claude respondeu: Vou te ensinar tudo do zero, com calma.Vou te ensinar tudo do zero, com calma. Salva essa explicação!
+
+📁 ESTRUTURA DO PROJETO
+projeto-carros/
+├── server.js          ← o "motor" do projeto
+├── package.json       ← lista de dependências
+├── models/
+│   ├── Usuario.js     ← estrutura do usuário no banco
+│   └── Carro.js       ← estrutura do carro no banco
+├── routes/
+│   ├── usuarios.js    ← ações de login/cadastro
+│   └── carros.js      ← ações de criar/editar/remover
+├── views/             ← páginas que o usuário vê
+│   ├── projects.ejs
+│   ├── cadastro.ejs
+│   ├── login.ejs
+│   ├── carros-lista.ejs
+│   ├── carros-gerencia.ejs
+│   └── carro-editar.ejs
+└── public/css/
+    └── style.css      ← visual das páginas
+
+📄 server.js — explicado linha por linha
+jsconst express = require('express');       // importa o express (cria o servidor)
+const mongoose = require('mongoose');     // importa o mongoose (fala com o banco)
+const session = require('express-session'); // importa sessão (guarda login)
+const path = require('path');             // ajuda a encontrar pastas
+
+const app = express(); // cria o servidor
+js// Conecta com o banco de dados MongoDB
+// 'concessionaria' é o NOME DO BANCO — você troca pelo que quiser
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+→ Se for pet shop, troca para:
+jsmongoose.connect('mongodb://localhost:27017/petshop')
+jsapp.set('view engine', 'ejs'); // diz que as páginas são .ejs
+app.use(express.urlencoded({ extended: true })); // lê formulários
+app.use(express.static(path.join(__dirname, 'public'))); // serve o CSS
+js// Importa as rotas
+const usuariosRouter = require('./routes/usuarios');
+const carrosRouter = require('./routes/carros');
+
+// Liga as rotas ao servidor
+// '/usuarios' → qualquer link que começa com /usuarios vai para routes/usuarios.js
+// '/carros'   → qualquer link que começa com /carros vai para routes/carros.js
+app.use('/usuarios', usuariosRouter);
+app.use('/carros', carrosRouter);
+→ Se for pet shop, troca para:
+jsconst animaisRouter = require('./routes/animais');
+app.use('/animais', animaisRouter);
+js// Rota padrão — quando acessa http://localhost, abre a página 'projects'
+app.get('/', (req, res) => {
+  res.render('projects'); // abre o arquivo views/projects.ejs
+});
+
+app.listen(80, () => {   // inicia o servidor na porta 80
+  console.log('Servidor rodando na porta 80');
+});
+
+📄 models/Carro.js — estrutura do banco
+jsconst mongoose = require('mongoose');
+
+// Aqui você define os CAMPOS que vão ser salvos no banco
+const carroSchema = new mongoose.Schema({
+  marca: { type: String, required: true },         // texto, obrigatório
+  modelo: { type: String, required: true },        // texto, obrigatório
+  ano: { type: Number, required: true },           // número, obrigatório
+  qtde_disponivel: { type: Number, required: true, default: 0 } // número, padrão 0
+});
+
+// 'Carro' é o nome da coleção no banco
+module.exports = mongoose.model('Carro', carroSchema);
+🐾 Se for pet shop, o arquivo vira assim:
+jsconst mongoose = require('mongoose');
+
+const animalSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  especie: { type: String, required: true },  // cachorro, gato...
+  raca: { type: String, required: true },
+  preco: { type: Number, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 }
+});
+
+module.exports = mongoose.model('Animal', animalSchema);
+Tipos de campo que você pode usar:
+O que éComo escreveTextotype: StringNúmerotype: NumberVerdadeiro/Falsotype: BooleanDatatype: DateObrigatóriorequired: trueValor padrãodefault: 0
+
+📄 models/Usuario.js — sempre igual, raramente muda
+jsconst mongoose = require('mongoose');
+
+const usuarioSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  login: { type: String, required: true, unique: true }, // único, não repete
+  senha: { type: String, required: true }
+});
+
+module.exports = mongoose.model('Usuario', usuarioSchema);
+→ Se o professor pedir para adicionar email:
+jsemail: { type: String, required: true }  // adiciona essa linha
+
+📄 routes/carros.js — as AÇÕES do sistema
+Cada bloco abaixo é uma operação do banco. Vou explicar cada um:
+CREATE — Cadastrar
+jsrouter.post('/cadastrar', verificarLogin, async (req, res) => {
+  // req.body pega o que foi digitado no formulário
+  const { marca, modelo, ano, qtde_disponivel } = req.body;
+
+  // Cria um novo objeto com os dados
+  const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+
+  // Salva no banco
+  await novoCarro.save();
+
+  // Redireciona para a página de gerência
+  res.redirect('/carros/gerencia');
+});
+→ Se for pet shop:
+jsrouter.post('/cadastrar', verificarLogin, async (req, res) => {
+  const { nome, especie, raca, preco, qtde_disponivel } = req.body;
+  const novoAnimal = new Animal({ nome, especie, raca, preco, qtde_disponivel });
+  await novoAnimal.save();
+  res.redirect('/animais/gerencia');
+});
+READ — Listar
+jsrouter.get('/', async (req, res) => {
+  // Busca TODOS os carros do banco
+  const carros = await Carro.find();
+
+  // Manda para a página, passando a lista de carros
+  res.render('carros-lista', { carros });
+});
+UPDATE — Atualizar
+jsrouter.post('/atualizar/:id', verificarLogin, async (req, res) => {
+  const { marca, modelo, ano, qtde_disponivel } = req.body;
+
+  // Acha o carro pelo ID e atualiza os campos
+  await Carro.findByIdAndUpdate(req.params.id, { marca, modelo, ano, qtde_disponivel });
+
+  res.redirect('/carros/gerencia');
+});
+DELETE — Remover
+jsrouter.post('/remover/:id', verificarLogin, async (req, res) => {
+  // Acha pelo ID e deleta
+  await Carro.findByIdAndDelete(req.params.id);
+
+  res.redirect('/carros/gerencia');
+});
+VENDER — Decrementa quantidade
+jsrouter.post('/vender/:id', verificarLogin, async (req, res) => {
+  const carro = await Carro.findById(req.params.id); // acha o carro
+  if (carro && carro.qtde_disponivel > 0) {           // se tiver estoque
+    carro.qtde_disponivel -= 1;                       // tira 1
+    await carro.save();                               // salva
+  }
+  res.redirect('/carros/gerencia');
+});
+
+📄 views — as páginas EJS
+A diferença do EJS para HTML normal é que você pode colocar código JavaScript dentro de <% %>:
+TagPara que serveExemplo<% %>executa código<% if(x > 0) { %><%= %>mostra valor na tela<%= carro.marca %><% } %>fecha um bloco<% } %>
+Como mostrar uma lista na página:
+html<!-- carros é a lista que veio lá do routes/carros.js -->
+<% carros.forEach(carro => { %>
+  <tr>
+    <td><%= carro.marca %></td>
+    <td><%= carro.modelo %></td>
+  </tr>
+<% }) %>
+→ Se for pet shop:
+html<% animais.forEach(animal => { %>
+  <tr>
+    <td><%= animal.nome %></td>
+    <td><%= animal.especie %></td>
+  </tr>
+<% }) %>
+Como mostrar "Esgotado":
+html<% if (carro.qtde_disponivel === 0) { %>
+  <span class="esgotado">Esgotado</span>
+<% } else { %>
+  <span class="disponivel">Disponível</span>
+<% } %>
+
+🐾 EXEMPLO COMPLETO — Trocando carros por Pet Shop
+ArquivoO que trocamodels/Carro.jsrenomeia para Animal.js, muda os camposroutes/carros.jsrenomeia para animais.js, troca Carro por Animalviews/carros-*.ejsrenomeia os arquivos, troca os campos nos formulários e tabelasserver.jstroca /carros por /animais, troca o nome do bancostyle.cssmuda cores se quiser
+
+🎯 Resumo — Decorar isso resolve a prova
+Quero adicionar campo     → models/ + views/ (formulário e tabela)
+Quero nova página         → views/ (cria .ejs) + server.js (cria rota)
+Quero mudar nome do banco → server.js (mongoose.connect)
+Quero mudar porta         → server.js (app.listen)
+Quero mudar cor/visual    → public/css/style.css
+Quero mudar texto da página → views/ (o .ejs daquela página)
+Quero trocar o tema       → models/ + routes/ + views/ + server.js
+Qualquer dúvida específica me pergunta que eu explico!Você disse: // Conecta com o banco de dados MongoDB// Conecta com o banco de dados MongoDB
+// 'concessionaria' é o NOME DO BANCO — você troca pelo que quiser
+mongoose.connect('mongodb://localhost:27017/concessionaria')isso é so um nome por convencao ou esta ligado com outras coisas tipo se eu mudar vou ter que mudar em outros lugares sera que é melhor nem mexer nao entendi direitoeu nao entendo onde tem que mudar cada coisa e onde cada coisa se interliga paraa mudar
+tipo se for mudar marca tem que mudar em um monte de lugares , eu queria fazer um guia de mudanca de cada coisa e onde teria que mudar em varios lugares que se interligariam, tipo dizendo onde mudar e o codigo e tudo completinho13:55Claude respondeu: Boa pergunta!Boa pergunta! Vou responder as duas coisas:
+
+O nome do banco (concessionaria)
+É só um nome, não está ligado a nada em nenhum outro arquivo. Você pode mudar só ali e pronto. O MongoDB cria o banco automaticamente com o nome que você colocar.
+js// Pode deixar como está, não quebra nada
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+
+// Ou mudar só aqui, não precisa mexer em mais lugar nenhum
+mongoose.connect('mongodb://localhost:27017/petshop')
+
+Guia de onde cada coisa se interliga
+Vou mostrar campo por campo, arquivo por arquivo, com o código completo de cada alteração.
+
+🔴 TROCAR "marca" por outro campo (ex: "nome")
+São 4 lugares que se falam:
+1 — models/Carro.js → define o campo no banco
+js// ANTES
+marca: { type: String, required: true },
+
+// DEPOIS
+nome: { type: String, required: true },
+2 — routes/carros.js → pega o valor do formulário e salva
+js// ANTES — no router.post('/cadastrar') e no router.post('/atualizar/:id')
+const { marca, modelo, ano, qtde_disponivel } = req.body;
+const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+
+// DEPOIS
+const { nome, modelo, ano, qtde_disponivel } = req.body;
+const novoCarro = new Carro({ nome, modelo, ano, qtde_disponivel });
+3 — views/carros-gerencia.ejs → formulário de cadastro e tabela
+html<!-- ANTES — no formulário -->
+<label>Marca:</label>
+<input type="text" name="marca" required>
+
+<!-- DEPOIS -->
+<label>Nome:</label>
+<input type="text" name="nome" required>
+html<!-- ANTES — na tabela -->
+<th>Marca</th>
+...
+<td><%= carro.marca %></td>
+
+<!-- DEPOIS -->
+<th>Nome</th>
+...
+<td><%= carro.nome %></td>
+4 — views/carro-editar.ejs → formulário de edição
+html<!-- ANTES -->
+<label>Marca:</label>
+<input type="text" name="marca" value="<%= carro.marca %>" required>
+
+<!-- DEPOIS -->
+<label>Nome:</label>
+<input type="text" name="nome" value="<%= carro.nome %>" required>
+
+🔴 ADICIONAR um campo novo (ex: "preco")
+São os mesmos 4 lugares:
+1 — models/Carro.js
+jsconst carroSchema = new mongoose.Schema({
+  marca: { type: String, required: true },
+  modelo: { type: String, required: true },
+  ano: { type: Number, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 },
+  preco: { type: Number, required: true }   // ← adiciona aqui
+});
+2 — routes/carros.js → nos dois lugares onde tem req.body
+js// No cadastrar
+const { marca, modelo, ano, qtde_disponivel, preco } = req.body;   // ← adiciona preco
+const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel, preco }); // ← aqui também
+
+// No atualizar
+const { marca, modelo, ano, qtde_disponivel, preco } = req.body;   // ← adiciona preco
+await Carro.findByIdAndUpdate(req.params.id, { marca, modelo, ano, qtde_disponivel, preco }); // ← aqui também
+3 — views/carros-gerencia.ejs → formulário E tabela
+html<!-- No formulário de cadastro, depois do campo ano -->
+<label>Preço:</label>
+<input type="number" name="preco" required>
+
+<!-- Na tabela, adiciona o cabeçalho -->
+<th>Preço</th>
+
+<!-- Na tabela, adiciona a célula dentro do forEach -->
+<td><%= carro.preco %></td>
+4 — views/carro-editar.ejs → formulário de edição
+html<label>Preço:</label>
+<input type="number" name="preco" value="<%= carro.preco %>" required>
+
+🔴 TROCAR O TEMA COMPLETO (ex: carros → pet shop)
+São 5 lugares:
+1 — models/Carro.js → renomeia o arquivo para Animal.js e muda tudo dentro
+jsconst animalSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  especie: { type: String, required: true },
+  raca: { type: String, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 }
+});
+
+module.exports = mongoose.model('Animal', animalSchema);
+2 — routes/carros.js → renomeia para animais.js e troca dentro do arquivo
+js// ANTES
+const Carro = require('../models/Carro');
+// DEPOIS
+const Animal = require('../models/Animal');
+
+// Troca toda palavra 'Carro' por 'Animal' e 'carro' por 'animal'
+// Troca toda palavra 'carros' por 'animais'
+// Troca os campos: { marca, modelo, ano } por { nome, especie, raca }
+
+// ANTES
+const { marca, modelo, ano, qtde_disponivel } = req.body;
+const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+// DEPOIS
+const { nome, especie, raca, qtde_disponivel } = req.body;
+const novoAnimal = new Animal({ nome, especie, raca, qtde_disponivel });
+3 — server.js → troca o nome da rota e do arquivo
+js// ANTES
+const carrosRouter = require('./routes/carros');
+app.use('/carros', carrosRouter);
+
+// DEPOIS
+const animaisRouter = require('./routes/animais');
+app.use('/animais', animaisRouter);
+4 — views/ → renomeia os arquivos e troca o conteúdo
+carros-lista.ejs     → animais-lista.ejs
+carros-gerencia.ejs  → animais-gerencia.ejs
+carro-editar.ejs     → animal-editar.ejs
+Dentro de cada um troca os campos na tabela e nos formulários igual mostrei acima.
+5 — views/projects.ejs → atualiza o link
+html<!-- ANTES -->
+<td><a href="/carros">Acessar sistema de carros</a></td>
+
+<!-- DEPOIS -->
+<td><a href="/animais">Acessar sistema de pet shop</a></td>
+
+Resumo visual de interligação
+Quer mudar/adicionar um CAMPO:
+  models/Carro.js         → define o campo
+  routes/carros.js        → cadastrar e atualizar (2 lugares)
+  views/carros-gerencia   → formulário + tabela (2 lugares)
+  views/carro-editar      → formulário de edição
+
+Quer mudar o TEMA inteiro:
+  models/Carro.js         → campos novos
+  routes/carros.js        → importação + campos + nomes
+  server.js               → nome da rota
+  views/*.ejs             → campos + links
+A regra de ouro é: o name do input no .ejs tem que ser igual ao campo no model e no routes. Se um estiver diferente do outro, não salva no banco.Você disse: é so isso que teria para mudar tem mais alguma coisa que eu teria que mudar se fosse mudar o tema, tipo se eu fizer tudo isso iria mudar tudo mesmo ou qinda fa…é so isso que teria para mudar tem mais alguma coisa que eu teria que mudar se fosse mudar o tema, tipo se eu fizer tudo isso iria mudar tudo mesmo ou qinda falta alguma coisa quero estar preparada para tudo17:03Claude respondeu: Boa pergunta!Boa pergunta! Vou fazer o checklist COMPLETO de tudo sem deixar nada de fora.
+
+✅ CHECKLIST COMPLETO — Trocar tema (ex: carros → pet shop)
+📄 1. models/Carro.js
+
+ Renomear o arquivo para Animal.js
+ Trocar o nome do schema (carroSchema → animalSchema)
+ Trocar os campos dentro do schema
+ Trocar o nome do model na última linha ('Carro' → 'Animal')
+
+
+📄 2. routes/carros.js
+
+ Renomear o arquivo para animais.js
+ Trocar o require do model (../models/Carro → ../models/Animal)
+ Trocar o nome da variável (const Carro → const Animal)
+ Trocar os campos no req.body do cadastrar
+ Trocar os campos no new Carro()  → new Animal()
+ Trocar os campos no req.body do atualizar
+ Trocar os campos no findByIdAndUpdate do atualizar
+ Trocar todos os res.redirect('/carros/...') → /animais/...
+ Trocar todos os res.render('carros-...') → res.render('animais-...')
+ Trocar o nome das variáveis passadas para o EJS ({ carros } → { animais })
+
+
+📄 3. server.js
+
+ Trocar o require da rota (./routes/carros → ./routes/animais)
+ Trocar o nome da variável (carrosRouter → animaisRouter)
+ Trocar o caminho da rota (/carros → /animais)
+ Trocar o nome do banco se quiser (concessionaria → petshop)
+
+
+📄 4. views/carros-lista.ejs
+
+ Renomear o arquivo para animais-lista.ejs
+ Trocar o título da página (<title> e <h1>)
+ Trocar os links do <nav> (/carros → /animais)
+ Trocar os cabeçalhos da tabela (<th>)
+ Trocar os campos dentro do forEach (carro.marca → animal.nome)
+ Trocar o nome da variável do forEach (carros.forEach(carro → animais.forEach(animal)
+
+
+📄 5. views/carros-gerencia.ejs
+
+ Renomear o arquivo para animais-gerencia.ejs
+ Trocar o título da página
+ Trocar os links do <nav>
+ Trocar os campos do formulário de cadastro (name="marca" → name="nome")
+ Trocar os labels do formulário
+ Trocar os cabeçalhos da tabela
+ Trocar os campos dentro do forEach
+ Trocar o nome da variável do forEach
+ Trocar os links dos botões Editar/Remover/Vender (/carros/ → /animais/)
+
+
+📄 6. views/carro-editar.ejs
+
+ Renomear o arquivo para animal-editar.ejs
+ Trocar o título da página
+ Trocar o link do <nav> (voltar para gerência)
+ Trocar o action do formulário (/carros/atualizar/ → /animais/atualizar/)
+ Trocar os campos do formulário (name="marca" → name="nome")
+ Trocar os value dos inputs (carro.marca → animal.nome)
+
+
+📄 7. views/projects.ejs
+
+ Trocar o nome na tabela (Carros → Pet Shop)
+ Trocar o link (/carros → /animais)
+ Trocar o link do <nav> se tiver
+
+
+🔎 Lugares que as pessoas ESQUECEM e dão erro
+Esses são os erros mais comuns:
+1 — Esquecer de trocar o res.render no routes
+js// Se renomeou o arquivo mas esqueceu isso, dá erro de página não encontrada
+res.render('carros-gerencia') // ← ERRADO depois de renomear
+res.render('animais-gerencia') // ← CERTO
+2 — Esquecer de trocar a variável passada para o EJS
+js// routes/animais.js
+const animais = await Animal.find();
+res.render('animais-lista', { animais }); // ← tem que bater com o nome no .ejs
+html<!-- animais-lista.ejs -->
+<% animais.forEach(animal => { %> <!-- ← tem que ser 'animais', igual ao routes -->
+3 — Esquecer de trocar o require no routes
+js// Se esqueceu isso, o sistema continua buscando os dados de carros
+const Animal = require('../models/Animal'); // ← tem que apontar pro arquivo certo
+4 — Esquecer de trocar o app.use no server.js
+js// Se deixar /carros aqui, os links /animais não vão funcionar
+app.use('/animais', animaisRouter); // ← tem que bater com os links das páginas
+
+🎯 Regra de ouro para não errar
+Tem 3 coisas que precisam ser iguais sempre:
+name do input no .ejs
+    ↕ tem que ser igual
+campo no model
+    ↕ tem que ser igual
+campo no req.body do routes
+E tem 2 coisas que precisam bater:
+{ animais } passado no res.render do routes
+    ↕ tem que ser igual
+animais.forEach no .ejs
+
+Se fizer tudo esse checklist, muda 100% do tema sem deixar nada para trás. Pode salvar isso para usar na prova!Você disse: NESSE, novoCarro teria que trocar tbm, e marca, modelo , ano tbm neNESSE, novoCarro teria que trocar tbm, e marca, modelo , ano tbm ne// Cadastrar novo carro (CREATE)
+router.post('/cadastrar', verificarLogin, async (req, res) => {
+  try {
+    // req.body pega o que foi digitado no formulário
+    // TROCAR PELOS MSM CAMPOS EM MODELS - trocar os campos no req.body do cadastrar
+    const { marca, modelo, ano, qtde_disponivel } = req.body;
+    // Cria um novo objeto com os dados:
+    // TROCAR os campos no new Carro()  → new Animal()
+    const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+    // Salva no banco
+    await novoCarro.save();
+    // Redireciona para a página de gerência
+    //TROCAR todos os res.redirect('/carros/...') → /animais/...
+    res.redirect('/carros/gerencia');
+  } catch (err) {
+    res.redirect('/carros/gerencia');
+  }
+});Mostrar mais17:20Claude respondeu: Sim, exatamente!Sim, exatamente! Você pegou direitinho. Tudo que tem o nome do tema antigo tem que trocar. Veja:
+js// ANTES — tema carros
+router.post('/cadastrar', verificarLogin, async (req, res) => {
+  try {
+    const { marca, modelo, ano, qtde_disponivel } = req.body;
+    const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+    await novoCarro.save();
+    res.redirect('/carros/gerencia');
+  } catch (err) {
+    res.redirect('/carros/gerencia');
+  }
+});
+js// DEPOIS — tema pet shop
+router.post('/cadastrar', verificarLogin, async (req, res) => {
+  try {
+    const { nome, especie, raca, qtde_disponivel } = req.body;
+    const novoAnimal = new Animal({ nome, especie, raca, qtde_disponivel });
+    await novoAnimal.save();
+    res.redirect('/animais/gerencia');
+  } catch (err) {
+    res.redirect('/animais/gerencia');
+  }
+});
+
+O que trocou e por quê
+O que eraVirouPor quêmarca, modelo, anonome, especie, racasão os campos que você definiu lá no models/Animal.jsnovoCarronovoAnimalé só o nome da variável, pode ser qualquer nome mas fica mais claronew Carro(...)new Animal(...)tem que bater com o nome do model no require lá em cima do arquivo/carros/gerencia/animais/gerenciatem que bater com a rota definida no server.js
+
+Regra simples para lembrar
+Sempre que ver uma dessas 4 coisas, pergunta: "ainda tem o nome do tema antigo aqui?"
+1. const { campos } = req.body        → campos = os do model
+2. const novoXxx = new Xxx({ })       → Xxx = nome do model
+3. res.redirect('/rota/...')          → rota = a do server.js
+4. res.render('pagina-...')           → pagina = o arquivo .ejs
+Se tiver, troca. Se não tiver, deixa como está!Você disse: e esse como ficarioe esse como ficario// Vender carro - decrementa quantidade (UPDATE)
+router.post('/vender/:id', verificarLogin, async (req, res) => {
+  //Trocar const carro
+  //Trocar Carro.findById
+  const carro = await Carro.findById(req.params.id);
+  if (carro && carro.qtde_disponivel > 0) {
+    carro.qtde_disponivel -= 1;
+    await carro.save();
+  }
+  //Trocar todos os res.redirect('/carros/...') → /animais/...
+  res.redirect('/carros/gerencia');
+});
+
+module.exports = router;Mostrar mais17:28Claude respondeu: jsjs// ANTES — tema carros
+router.post('/vender/:id', verificarLogin, async (req, res) => {
+  const carro = await Carro.findById(req.params.id);
+  if (carro && carro.qtde_disponivel > 0) {
+    carro.qtde_disponivel -= 1;
+    await carro.save();
+  }
+  res.redirect('/carros/gerencia');
+});
+js// DEPOIS — tema pet shop
+router.post('/vender/:id', verificarLogin, async (req, res) => {
+  const animal = await Animal.findById(req.params.id);
+  if (animal && animal.qtde_disponivel > 0) {
+    animal.qtde_disponivel -= 1;
+    await animal.save();
+  }
+  res.redirect('/animais/gerencia');
+});
+
+O que trocou e por quê
+O que eraVirouPor quêconst carroconst animalnome da variável, tem que ser o tema novoCarro.findByIdAnimal.findByIdtem que bater com o model lá em cima do arquivocarro.qtde_disponivelanimal.qtde_disponivela variável mudou para animal, então aqui muda tambémcarro.save()animal.save()mesma coisa, a variável mudou/carros/gerencia/animais/gerenciatem que bater com a rota do server.js
+
+Repara numa coisa importante
+O qtde_disponivel não muda porque esse campo você manteve igual no model. Se você tivesse colocado um nome diferente no model, aí teria que trocar aqui também. Por isso o model é sempre o ponto de partida — o nome que você colocar lá é o nome que vai aparecer em todo o resto.Você disse: e se ao inves de vender eu quisesse colocar para adotare se ao inves de vender eu quisesse colocar para adotar17:29Claude respondeu: É só trocar o nome da rota e o texto, a lógica é exatamente igual!É só trocar o nome da rota e o texto, a lógica é exatamente igual! Veja:
+js// ANTES — vender
+router.post('/vender/:id', verificarLogin, async (req, res) => {
+  const carro = await Carro.findById(req.params.id);
+  if (carro && carro.qtde_disponivel > 0) {
+    carro.qtde_disponivel -= 1;
+    await carro.save();
+  }
+  res.redirect('/carros/gerencia');
+});
+js// DEPOIS — adotar
+router.post('/adotar/:id', verificarLogin, async (req, res) => {
+  const animal = await Animal.findById(req.params.id);
+  if (animal && animal.qtde_disponivel > 0) {
+    animal.qtde_disponivel -= 1;
+    await animal.save();
+  }
+  res.redirect('/animais/gerencia');
+});
+
+O que trocou
+O que eraVirouPor quê/vender/:id/adotar/:idé o nome da rota, muda o link do botãoo restoiguala lógica é a mesma, só decrementa 1
+
+Mas tem que trocar no .ejs também!
+O botão lá no views/animais-gerencia.ejs tem que apontar para a rota nova:
+html<!-- ANTES -->
+<form action="/carros/vender/<%= carro._id %>" method="POST">
+  <button type="submit">Vender</button>
+</form>
+html<!-- DEPOIS -->
+<form action="/animais/adotar/<%= animal._id %>" method="POST">
+  <button type="submit">Adotar</button>
+</form>
+
+Regra geral
+Qualquer ação que diminui 1 do estoque segue essa mesma lógica. Pode chamar de vender, adotar, alugar, emprestar... só muda o nome da rota e o texto do botão, o código interno é sempre igual.Você disse: aqui oq q tem q trocar nao entendi:aqui oq q tem q trocar nao entendi:<tbody>
+        <%# TROCAR os campos dentro do forEach (carro.marca → animal.nome)%>
+        <% carros.forEach(carro => { %>
+          <tr>
+            <td><%= carro.marca %></td>
+            <td><%= carro.modelo %></td>
+            <td><%= carro.ano %></td>
+            <td><%= carro.qtde_disponivel %></td>
+            <td>
+              <% if (carro.qtde_disponivel === 0) { %>
+                <span class="esgotado">Esgotado</span>
+              <% } else { %>
+                <span class="disponivel">Disponível</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <% if (carros.length === 0) { %>
+      <p>Nenhum carro cadastrado ainda.</p>
+    <% } %>
+  </div>
+</body>
+</html>Mostrar mais17:51Claude respondeu: htmlhtml<!-- ANTES — tema carros -->
+<tbody>
+  <% carros.forEach(carro => { %>
+    <tr>
+      <td><%= carro.marca %></td>
+      <td><%= carro.modelo %></td>
+      <td><%= carro.ano %></td>
+      <td><%= carro.qtde_disponivel %></td>
+      <td>
+        <% if (carro.qtde_disponivel === 0) { %>
+          <span class="esgotado">Esgotado</span>
+        <% } else { %>
+          <span class="disponivel">Disponível</span>
+        <% } %>
+      </td>
+    </tr>
+  <% }) %>
+</tbody>
+
+<% if (carros.length === 0) { %>
+  <p>Nenhum carro cadastrado ainda.</p>
+<% } %>
+html<!-- DEPOIS — tema pet shop -->
+<tbody>
+  <% animais.forEach(animal => { %>
+    <tr>
+      <td><%= animal.nome %></td>
+      <td><%= animal.especie %></td>
+      <td><%= animal.raca %></td>
+      <td><%= animal.qtde_disponivel %></td>
+      <td>
+        <% if (animal.qtde_disponivel === 0) { %>
+          <span class="esgotado">Esgotado</span>
+        <% } else { %>
+          <span class="disponivel">Disponível</span>
+        <% } %>
+      </td>
+    </tr>
+  <% }) %>
+</tbody>
+
+<% if (animais.length === 0) { %>
+  <p>Nenhum animal cadastrado ainda.</p>
+<% } %>
+
+O que trocou e por quê
+O que eraVirouPor quêcarros.forEachanimais.forEachanimais é o nome que vem lá do routes/animais.js no res.rendercarro =>animal =>é o nome da variável dentro do loop, tem que ser o tema novocarro.marcaanimal.nomeanimal é a variável do loop, nome é o campo do modelcarro.modeloanimal.especiemesmo motivocarro.anoanimal.racamesmo motivocarro.qtde_disponivelanimal.qtde_disponivelqtde_disponivel não muda pois o campo tem o mesmo nome no modelcarros.lengthanimais.lengthtem que ser o mesmo nome da lista que veio do routesNenhum carroNenhum animalsó texto, muda para ficar coerente
+
+A lógica do forEach
+Pensa assim, é como se fosse uma repetição:
+para cada ANIMAL dentro da lista ANIMAIS
+  mostra uma linha na tabela com os dados desse ANIMAL
+Então tudo dentro do forEach usa o nome da variável do loop (animal), e os campos depois do ponto (.nome, .especie) têm que ser iguais aos campos do model.Você disse: aqui o que que tem que alteraraqui o que que tem que alterar  <div class="container">
+    <h1>Gerência de Carros</h1>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/carros">Ver Listagem</a>
+      <a href="/usuarios/logout">Sair</a>
+    </nav>
+
+    <% if (mensagem) { %>
+      <p class="mensagem"><%= mensagem %></p>
+    <% } %>
+
+    <!-- Formulário de cadastro de novo carro - EM gerencia de carros -->
+    <div class="card">
+      <h2>Cadastrar Novo Carro</h2>
+      <form action="/carros/cadastrar" method="POST">
+        <label>Marca:</label>
+        <input type="text" name="marca" required>
+
+        <label>Modelo:</label>
+        <input type="text" name="modelo" required>
+
+        <label>Ano:</label>
+        <input type="number" name="ano" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" required min="0">
+        
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    <!-- Listagem com opções de gerência -->
+    <div class="card">
+      <h2>Carros Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Qtde</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>Mostrar mais18:06Claude respondeu: htmlhtml<!-- ANTES — tema carros -->
+<div class="container">
+  <h1>Gerência de Carros</h1>
+  <nav>
+    <a href="/">Início</a>
+    <a href="/carros">Ver Listagem</a>
+    <a href="/usuarios/logout">Sair</a>
+  </nav>
+
+  <div class="card">
+    <h2>Cadastrar Novo Carro</h2>
+    <form action="/carros/cadastrar" method="POST">
+      <label>Marca:</label>
+      <input type="text" name="marca" required>
+
+      <label>Modelo:</label>
+      <input type="text" name="modelo" required>
+
+      <label>Ano:</label>
+      <input type="number" name="ano" required>
+
+      <label>Quantidade Disponível:</label>
+      <input type="number" name="qtde_disponivel" required min="0">
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Carros Cadastrados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Ano</th>
+          <th>Qtde</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+html<!-- DEPOIS — tema pet shop -->
+<div class="container">
+  <h1>Gerência de Animais</h1>
+  <nav>
+    <a href="/">Início</a>
+    <a href="/animais">Ver Listagem</a>
+    <a href="/usuarios/logout">Sair</a>
+  </nav>
+
+  <div class="card">
+    <h2>Cadastrar Novo Animal</h2>
+    <form action="/animais/cadastrar" method="POST">
+      <label>Nome:</label>
+      <input type="text" name="nome" required>
+
+      <label>Espécie:</label>
+      <input type="text" name="especie" required>
+
+      <label>Raça:</label>
+      <input type="text" name="raca" required>
+
+      <label>Quantidade Disponível:</label>
+      <input type="number" name="qtde_disponivel" required min="0">
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Animais Cadastrados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Espécie</th>
+          <th>Raça</th>
+          <th>Qtde</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+O que trocou e por quê
+O que eraVirouPor quêGerência de CarrosGerência de Animaistexto da página, só visualhref="/carros"href="/animais"link do nav, tem que bater com a rota do server.jsCadastrar Novo CarroCadastrar Novo Animaltexto, só visualaction="/carros/cadastrar"action="/animais/cadastrar"para onde o formulário envia os dados, tem que bater com o routes/animais.jsname="marca"name="nome"tem que ser igual ao campo no models/Animal.jsname="modelo"name="especie"mesmo motivoname="ano"name="raca"mesmo motivoname="qtde_disponivel"name="qtde_disponivel"não muda pois o campo tem o mesmo nome no model<th>Marca</th> etc<th>Nome</th> etccabeçalhos da tabela, só visual
+
+A regra do name do input
+Esse é o mais importante de todos. O name do input é o que chega no req.body lá no routes. Então tem que ser idêntico ao campo do model:
+models/Animal.js      →   nome, especie, raca
+      ↕ tem que ser igual
+input name="..."      →   nome, especie, raca
+      ↕ tem que ser igual
+req.body no routes    →   nome, especie, raca
+Se qualquer um dos três estiver diferente, o dado não salva no banco.Você disse: e esses:e esses: <%# TROCAR se alterou algum  %>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Qtde</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% carros.forEach(carro => { %>
+            <tr>
+              <td><%= carro.marca %></td>
+              <td><%= carro.modelo %></td>
+              <td><%= carro.ano %></td>
+              <td><%= carro.qtde_disponivel %></td>
+              <td>
+                <% if (carro.qtde_disponivel === 0) { %>
+                  <span class="esgotado">Esgotado</span>
+                <% } else { %>
+                  <span class="disponivel">Disponível</span>
+                <% } %>
+              </td>
+              <td class="acoes">
+                <!-- Editar -->
+                <a href="/carros/editar/<%= carro._id %>" class="btn btn-editar">Editar</a>
+
+                <!-- Vender -->
+                <form action="/carros/vender/<%= carro._id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-vender"
+                    <% if (carro.qtde_disponivel === 0) { %> disabled <% } %>>
+                    Vender
+                  </button>
+                </form>
+
+                <!-- Remover -->
+                <form action="/carros/remover/<%= carro._id %>" method="POST" style="display:inline;"
+                  onsubmit="return confirm('Tem certeza que quer remover este carro?')">
+                  <button type="submit" class="btn btn-remover">Remover</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <% if (carros.length === 0) { %>
+        <p>Nenhum carro cadastrado ainda.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>Mostrar mais18:10Claude respondeu: htmlhtml<!-- ANTES — tema carros -->
+<th>Marca</th>
+<th>Modelo</th>
+<th>Ano</th>
+<th>Qtde</th>
+<th>Status</th>
+<th>Ações</th>
+
+<% carros.forEach(carro => { %>
+  <tr>
+    <td><%= carro.marca %></td>
+    <td><%= carro.modelo %></td>
+    <td><%= carro.ano %></td>
+    <td><%= carro.qtde_disponivel %></td>
+    <td>
+      <% if (carro.qtde_disponivel === 0) { %>
+        <span class="esgotado">Esgotado</span>
+      <% } else { %>
+        <span class="disponivel">Disponível</span>
+      <% } %>
+    </td>
+    <td class="acoes">
+      <a href="/carros/editar/<%= carro._id %>" class="btn btn-editar">Editar</a>
+
+      <form action="/carros/vender/<%= carro._id %>" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-vender"
+          <% if (carro.qtde_disponivel === 0) { %> disabled <% } %>>
+          Vender
+        </button>
+      </form>
+
+      <form action="/carros/remover/<%= carro._id %>" method="POST" style="display:inline;"
+        onsubmit="return confirm('Tem certeza que quer remover este carro?')">
+        <button type="submit" class="btn btn-remover">Remover</button>
+      </form>
+    </td>
+  </tr>
+<% }) %>
+
+<% if (carros.length === 0) { %>
+  <p>Nenhum carro cadastrado ainda.</p>
+<% } %>
+html<!-- DEPOIS — tema pet shop -->
+<th>Nome</th>
+<th>Espécie</th>
+<th>Raça</th>
+<th>Qtde</th>
+<th>Status</th>
+<th>Ações</th>
+
+<% animais.forEach(animal => { %>
+  <tr>
+    <td><%= animal.nome %></td>
+    <td><%= animal.especie %></td>
+    <td><%= animal.raca %></td>
+    <td><%= animal.qtde_disponivel %></td>
+    <td>
+      <% if (animal.qtde_disponivel === 0) { %>
+        <span class="esgotado">Esgotado</span>
+      <% } else { %>
+        <span class="disponivel">Disponível</span>
+      <% } %>
+    </td>
+    <td class="acoes">
+      <a href="/animais/editar/<%= animal._id %>" class="btn btn-editar">Editar</a>
+
+      <form action="/animais/adotar/<%= animal._id %>" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-vender"
+          <% if (animal.qtde_disponivel === 0) { %> disabled <% } %>>
+          Adotar
+        </button>
+      </form>
+
+      <form action="/animais/remover/<%= animal._id %>" method="POST" style="display:inline;"
+        onsubmit="return confirm('Tem certeza que quer remover este animal?')">
+        <button type="submit" class="btn btn-remover">Remover</button>
+      </form>
+    </td>
+  </tr>
+<% }) %>
+
+<% if (animais.length === 0) { %>
+  <p>Nenhum animal cadastrado ainda.</p>
+<% } %>
+
+O que trocou e por quê
+O que eraVirouPor quê<th>Marca</th> etc<th>Nome</th> etccabeçalhos da tabela, só visualcarros.forEach(carroanimais.forEach(animaltem que bater com o que vem do routes/animais.jscarro.marcaanimal.nomeanimal é a variável do loop, .nome é o campo do modelcarro.modeloanimal.especiemesmo motivocarro.anoanimal.racamesmo motivocarro.qtde_disponivelanimal.qtde_disponivelnão muda pois o campo tem o mesmo nome no modelcarro._idanimal._ida variável do loop mudou, o ._id nunca muda/carros/editar//animais/editar/tem que bater com a rota do routes/animais.js/carros/vender//animais/adotar/tem que bater com a rota do routes/animais.jsVenderAdotartexto do botão, só visual/carros/remover//animais/remover/tem que bater com a rota do routes/animais.jsremover este carroremover este animaltexto do confirm, só visualcarros.lengthanimais.lengthtem que ser o mesmo nome da lista que vem do routesNenhum carroNenhum animaltexto, só visual
+
+O _id nunca muda
+O _id é gerado automaticamente pelo MongoDB para todo documento. Não importa o tema, sempre vai ser ._id. Só muda a variável na frente — carro._id vira animal._id porque a variável do loop mudou.Você disse: e se por exemplo eu tiver que adicionar mais um modolo do tipo gerencia / lista como façoe se por exemplo eu tiver que adicionar mais um modolo do tipo gerencia / lista como faço18:36Claude respondeu: Boa pergunta!Boa pergunta! Vou te ensinar do zero como criar um módulo novo completo.
+
+Exemplo: adicionar módulo de Produtos numa pet shop
+São 4 passos sempre na mesma ordem:
+
+PASSO 1 — Cria o Model models/Produto.js
+jsconst mongoose = require('mongoose');
+
+const produtoSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  tipo: { type: String, required: true },   // ex: ração, brinquedo, remédio
+  preco: { type: Number, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 }
+});
+
+module.exports = mongoose.model('Produto', produtoSchema);
+
+PASSO 2 — Cria o Routes routes/produtos.js
+jsconst express = require('express');
+const router = express.Router();
+const Produto = require('../models/Produto');
+
+// Middleware de login
+function verificarLogin(req, res, next) {
+  if (req.session.usuario) {
+    next();
+  } else {
+    res.redirect('/usuarios/login');
+  }
+}
+
+// READ — Listagem pública
+router.get('/', async (req, res) => {
+  const produtos = await Produto.find();
+  res.render('produtos-lista', { produtos });
+});
+
+// READ — Página de gerência
+router.get('/gerencia', verificarLogin, async (req, res) => {
+  const produtos = await Produto.find();
+  res.render('produtos-gerencia', { produtos, mensagem: null });
+});
+
+// CREATE — Cadastrar
+router.post('/cadastrar', verificarLogin, async (req, res) => {
+  const { nome, tipo, preco, qtde_disponivel } = req.body;
+  const novoProduto = new Produto({ nome, tipo, preco, qtde_disponivel });
+  await novoProduto.save();
+  res.redirect('/produtos/gerencia');
+});
+
+// DELETE — Remover
+router.post('/remover/:id', verificarLogin, async (req, res) => {
+  await Produto.findByIdAndDelete(req.params.id);
+  res.redirect('/produtos/gerencia');
+});
+
+// READ — Página de editar
+router.get('/editar/:id', verificarLogin, async (req, res) => {
+  const produto = await Produto.findById(req.params.id);
+  res.render('produto-editar', { produto, mensagem: null });
+});
+
+// UPDATE — Atualizar
+router.post('/atualizar/:id', verificarLogin, async (req, res) => {
+  const { nome, tipo, preco, qtde_disponivel } = req.body;
+  await Produto.findByIdAndUpdate(req.params.id, { nome, tipo, preco, qtde_disponivel });
+  res.redirect('/produtos/gerencia');
+});
+
+// UPDATE — Vender/decrementar
+router.post('/vender/:id', verificarLogin, async (req, res) => {
+  const produto = await Produto.findById(req.params.id);
+  if (produto && produto.qtde_disponivel > 0) {
+    produto.qtde_disponivel -= 1;
+    await produto.save();
+  }
+  res.redirect('/produtos/gerencia');
+});
+
+module.exports = router;
+
+PASSO 3 — Registra no server.js
+Só adiciona 2 linhas no server.js:
+js// ANTES — só tinha animais
+const animaisRouter = require('./routes/animais');
+app.use('/animais', animaisRouter);
+
+// DEPOIS — adiciona produtos também
+const animaisRouter = require('./routes/animais');
+const produtosRouter = require('./routes/produtos');  // ← linha nova
+
+app.use('/animais', animaisRouter);
+app.use('/produtos', produtosRouter);  // ← linha nova
+
+PASSO 4 — Cria as páginas na pasta views/
+Cria 3 arquivos novos:
+views/produtos-lista.ejs
+html<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Produtos Disponíveis</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Produtos Disponíveis</h1>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/animais">Ver Animais</a>
+      <a href="/produtos/gerencia">Gerenciar Produtos</a>
+    </nav>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Preço</th>
+          <th>Quantidade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% produtos.forEach(produto => { %>
+          <tr>
+            <td><%= produto.nome %></td>
+            <td><%= produto.tipo %></td>
+            <td><%= produto.preco %></td>
+            <td><%= produto.qtde_disponivel %></td>
+            <td>
+              <% if (produto.qtde_disponivel === 0) { %>
+                <span class="esgotado">Esgotado</span>
+              <% } else { %>
+                <span class="disponivel">Disponível</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <% if (produtos.length === 0) { %>
+      <p>Nenhum produto cadastrado ainda.</p>
+    <% } %>
+  </div>
+</body>
+</html>
+views/produtos-gerencia.ejs
+html<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerência de Produtos</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerência de Produtos</h1>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/produtos">Ver Listagem</a>
+      <a href="/usuarios/logout">Sair</a>
+    </nav>
+
+    <div class="card">
+      <h2>Cadastrar Novo Produto</h2>
+      <form action="/produtos/cadastrar" method="POST">
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label>Tipo:</label>
+        <input type="text" name="tipo" required>
+
+        <label>Preço:</label>
+        <input type="number" name="preco" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" required min="0">
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Produtos Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Preço</th>
+            <th>Qtde</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% produtos.forEach(produto => { %>
+            <tr>
+              <td><%= produto.nome %></td>
+              <td><%= produto.tipo %></td>
+              <td><%= produto.preco %></td>
+              <td><%= produto.qtde_disponivel %></td>
+              <td>
+                <% if (produto.qtde_disponivel === 0) { %>
+                  <span class="esgotado">Esgotado</span>
+                <% } else { %>
+                  <span class="disponivel">Disponível</span>
+                <% } %>
+              </td>
+              <td class="acoes">
+                <a href="/produtos/editar/<%= produto._id %>" class="btn btn-editar">Editar</a>
+
+                <form action="/produtos/vender/<%= produto._id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-vender"
+                    <% if (produto.qtde_disponivel === 0) { %> disabled <% } %>>
+                    Vender
+                  </button>
+                </form>
+
+                <form action="/produtos/remover/<%= produto._id %>" method="POST" style="display:inline;"
+                  onsubmit="return confirm('Tem certeza que quer remover este produto?')">
+                  <button type="submit" class="btn btn-remover">Remover</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <% if (produtos.length === 0) { %>
+        <p>Nenhum produto cadastrado ainda.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
+views/produto-editar.ejs
+html<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Produto</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Editar Produto</h1>
+    <nav>
+      <a href="/produtos/gerencia">Voltar para Gerência</a>
+    </nav>
+
+    <div class="card">
+      <form action="/produtos/atualizar/<%= produto._id %>" method="POST">
+        <label>Nome:</label>
+        <input type="text" name="nome" value="<%= produto.nome %>" required>
+
+        <label>Tipo:</label>
+        <input type="text" name="tipo" value="<%= produto.tipo %>" required>
+
+        <label>Preço:</label>
+        <input type="number" name="preco" value="<%= produto.preco %>" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" value="<%= produto.qtde_disponivel %>" required min="0">
+
+        <button type="submit">Salvar Alterações</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+Resumo dos 4 passos sempre na mesma ordem
+1. models/     → cria o arquivo com os campos
+2. routes/     → cria o arquivo com as ações (CRUD)
+3. server.js   → registra a rota nova (2 linhas)
+4. views/      → cria os 3 arquivos .ejs (lista, gerencia, editar)
+Seguindo essa ordem você consegue adicionar quantos módulos quiser sem perder nada!Você disse: mas fazendo isso oq aconteceriamas fazendo isso oq aconteceria18:38Claude respondeu: Você teria um sistema com 2 módulos independentes funcionando ao mesmo tempo.Você teria um sistema com 2 módulos independentes funcionando ao mesmo tempo. Tipo assim:
+
+O que o usuário veria
+http://localhost/              → página de projetos
+http://localhost/animais       → lista de animais
+http://localhost/animais/gerencia  → gerencia animais
+http://localhost/produtos      → lista de produtos
+http://localhost/produtos/gerencia → gerencia produtos
+Cada um com seu próprio cadastro, edição, remoção e venda. Um não interfere no outro.
+
+Como ficaria no banco de dados
+O MongoDB criaria 2 coleções separadas:
+banco: petshop
+├── animais    → { nome, especie, raca, qtde_disponivel }
+└── produtos   → { nome, tipo, preco, qtde_disponivel }
+Igual a ter duas tabelas separadas num banco SQL. Os dados de animal não se misturam com os de produto.
+
+Como ficaria a página de projetos
+Você adicionaria os dois links na tabela do projects.ejs:
+html<tbody>
+  <tr>
+    <td>Animais</td>
+    <td><a href="/animais">Acessar sistema de animais</a></td>
+  </tr>
+  <tr>                                        <!-- ← linha nova -->
+    <td>Produtos</td>
+    <td><a href="/produtos">Acessar sistema de produtos</a></td>
+  </tr>
+</tbody>
+
+Resumo visual
+ANTES — 1 módulo          DEPOIS — 2 módulos
+──────────────────        ──────────────────────────
+/animais                  /animais
+/animais/gerencia         /animais/gerencia
+                          /produtos           ← novo
+                          /produtos/gerencia  ← novo
+É exatamente isso que o professor pediu quando disse "criar duas coleções no banco de dados" — cada módulo vira uma coleção separada!Você disse: mas isso criaria produtos para a pessoa adicionar nao entendi e ficaria do lado de ver carros/login/cadastrar no inicio nn entendimas isso criaria produtos para a pessoa adicionar nao entendi e ficaria do lado de ver carros/login/cadastrar no inicio nn entendi18:43Claude respondeu: Boa pergunta!Boa pergunta! Vou explicar direitinho o que acontece na prática.
+
+O que cada módulo faz
+Sim, criaria um sistema de produtos separado do sistema de animais. Pensa assim:
+Sistema de Animais          Sistema de Produtos
+──────────────────          ───────────────────
+Cadastrar animal            Cadastrar produto
+Listar animais              Listar produtos
+Editar animal               Editar produto
+Remover animal              Remover produto
+Dois sistemas independentes, cada um com seus próprios dados.
+
+Sobre o nav — você escolhe o que aparece
+O nav é só o que você escrever no arquivo .ejs. Se quiser que apareça o link de produtos no nav, adiciona. Se não quiser, não adiciona. Você tem controle total.
+Exemplo — nav só com animais:
+html<nav>
+  <a href="/">Início</a>
+  <a href="/animais">Ver Animais</a>
+  <a href="/usuarios/login">Login</a>
+</nav>
+Exemplo — nav com os dois:
+html<nav>
+  <a href="/">Início</a>
+  <a href="/animais">Ver Animais</a>
+  <a href="/produtos">Ver Produtos</a>
+  <a href="/usuarios/login">Login</a>
+</nav>
+
+Quando usar 2 módulos?
+Só cria um segundo módulo se o professor pedir algo como:
+
+"crie duas coleções no banco" com temas diferentes
+"adicione um módulo de X além do módulo de Y"
+
+Se ele pedir só um tema como carros ou pet shop, você só precisa de 1 módulo. Não precisa criar o segundo à toa.
+
+Na prova o mais provável é
+O professor vai pedir algo parecido com a atividade que você já tem, só trocando o tema. Tipo:
+"Faça um sistema de gerenciamento de livros"
+"Faça um sistema de gerenciamento de filmes"
+"Faça um sistema de gerenciamento de jogos"
+Aí você pega o projeto que já tem, troca o tema seguindo o checklist que fizemos, e entrega. Um módulo só já resolve!Você disse: se o mongo db nao estiver instalado no comp oq eu facose o mongo db nao estiver instalado no comp oq eu faco09:17Claude respondeu: Você tem duas opções.Você tem duas opções. A mais fácil é usar o MongoDB Atlas que é online e não precisa instalar nada.
+
+Opção 1 — MongoDB Atlas (recomendo, é online e grátis)
+Passo 1 — Cria a conta
+Acessa mongodb.com/cloud/atlas e cria uma conta grátis.
+Passo 2 — Cria um cluster
+
+Clica em "Create"
+Escolhe "Free" (M0)
+Escolhe qualquer região
+Clica em "Create Cluster"
+
+Passo 3 — Cria usuário do banco
+
+No menu lateral clica em "Database Access"
+Clica em "Add New Database User"
+Coloca um usuário e senha — anota esses dados!
+Clica em "Add User"
+
+Passo 4 — Libera o acesso
+
+No menu lateral clica em "Network Access"
+Clica em "Add IP Address"
+Clica em "Allow Access From Anywhere"
+Clica em "Confirm"
+
+Passo 5 — Pega a string de conexão
+
+No menu lateral clica em "Database"
+Clica em "Connect"
+Clica em "Drivers"
+Copia a string que aparece, vai ser algo assim:
+
+mongodb+srv://seuusuario:suasenha@cluster0.xxxxx.mongodb.net/
+Passo 6 — Cola no server.js
+js// ANTES — banco local
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+
+// DEPOIS — banco online
+mongoose.connect('mongodb+srv://seuusuario:suasenha@cluster0.xxxxx.mongodb.net/concessionaria')
+Só troca essa linha e pronto, funciona sem instalar nada!
+
+Opção 2 — Instalar o MongoDB no computador
+Passo 1 — Baixa
+Acessa mongodb.com/try/download/community e baixa o instalador do Windows.
+Passo 2 — Instala
+
+Abre o instalador
+Clica Next em tudo
+Marca a opção "Install MongoDB as a Service" — isso faz ele iniciar automaticamente
+
+Passo 3 — Verifica se está rodando
+Abre o CMD e digita:
+bashmongod --version
+Se aparecer um número de versão, está instalado certo.
+
+Qual escolher?
+Atlas (online)InstaladoPrecisa instalar?NãoSimFunciona em qualquer PC?SimSó no seuFunciona na prova?Sim, se tiver internetSimDificuldadeFácilMédio
+Se tiver internet na prova → usa o Atlas.
+Se não tiver internet na prova → instala no computador.
+Me fala qual situação é a sua que eu te ajudo mais!Você disse: Current IP Address not added.Current IP Address not added. You will not be able to connect to databases from this address.
+e tem botoes 
+add current ip adress e do not show me again09:21Claude respondeu: Clica em "Add Current IP Address"!Clica em "Add Current IP Address"!
+Esse aviso significa que o Atlas ainda não liberou o seu IP para conectar. Clicando nesse botão ele libera na hora.
+
+Se quiser liberar para qualquer IP de uma vez (mais fácil para não ter esse problema de novo):
+
+No menu lateral clica em "Network Access"
+Clica em "Add IP Address"
+Clica em "Allow Access From Anywhere"
+Clica em "Confirm"
+
+Isso evita esse aviso aparecer de novo em qualquer computador que você usar, o que é útil para a prova caso o IP seja diferente.Você disse: Add IP Access List EntryAdd IP Access List Entry
+Atlas only allows client connections to a cluster from entries in the project’s IP Access List. Each entry should either be a single IP address or a CIDR-notated range of addresses. [Learn more](https://docs.atlas.mongodb.com/setup-cluster-security/#add-ip-addresses-to-the-whitelist)
+Access List Entry:
+Comment:
+This entry is temporary and will be deleted in09:23Claude respondeu: Preenche assim:Preenche assim:
+Access List Entry:
+0.0.0.0/0
+Comment:
+acesso geral
+A opção "This entry is temporary" — deixa desmarcada para não expirar.
+Depois clica em Confirm e pronto! O 0.0.0.0/0 significa que qualquer computador consegue conectar, o que é perfeito para não ter esse problema de novo na prova.Você disse: e agorae agora09:24Claude respondeu: Agora vai pegar a string de conexão!Agora vai pegar a string de conexão!
+No menu lateral clica em "Database" e me fala o que aparece na tela que eu te guio o próximo passo!09:25Claude respondeu: Ótimo, o usuário ester já está criado!Ótimo, o usuário ester já está criado! Agora precisa pegar a string de conexão.
+No menu lateral esquerdo clica em "Clusters" ou procura por "Database" — me manda o print do que aparecer!09:26Claude respondeu: Perfeito, o cluster está criado e funcionando!Perfeito, o cluster está criado e funcionando! Agora clica no botão "Connect" que está do lado do Cluster0.Você disse: mas eu acho que tinha feito isso antes de hj nao lembromas eu acho que tinha feito isso antes de hj nao lembro09:26Claude respondeu: Tudo bem, não tem problema!Tudo bem, não tem problema! Clica em "Connect" mesmo assim, a string de conexão sempre fica salva lá.
+Me manda o print do que aparecer depois de clicar!09:28Claude respondeu: Essa tela é do Atlas SQL, não é a certa.Essa tela é do Atlas SQL, não é a certa. Clica em "Go Back" para voltar e me manda o print da tela anterior que vou te guiar pelo caminho certo!09:29Claude respondeu: Perfeito!Perfeito! Agora clica em "Drivers" — é essa opção que dá a string de conexão para o Node.js!09:30Claude respondeu: Perfeito!Perfeito! Já apareceu a string de conexão! Consegue ver lá embaixo:
+mongodb+srv://ester:<db_password>@cluster0.vkwsusp.mongodb.net/?appName=Cluster0
+Agora abre o server.js e troca a linha do mongoose.connect assim, substituindo <db_password> pela senha que você colocou quando criou o usuário ester:
+js// ANTES
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+
+// DEPOIS — cola a string e troca <db_password> pela sua senha
+mongoose.connect('mongodb+srv://ester:SUA_SENHA_AQUI@cluster0.vkwsusp.mongodb.net/concessionaria')
+
+Resumo do que trocar
+O que está na stringO que você colocaesterjá está certo, é seu usuário<db_password>troca pela senha que criou no Atlasconcessionarianome do banco, pode deixar assim
+Qual é a senha que você criou para o usuário ester? Se não lembrar me fala que eu te ensino a redefinir!Você disse: eu nao tenho certeza da senhaeu nao tenho certeza da senha09:37Claude respondeu: Sem problema!Sem problema! Vamos redefinir a senha. É rápido.
+
+Clica em "Database Access" no menu lateral esquerdo, vai aparecer o usuário ester com um botão "Edit" do lado. Clica em "Edit"!Você disse: nao estou achando data base accessnao estou achando data base access09:39Claude respondeu: Rola o menu lateral para baixo!Rola o menu lateral para baixo! Procura por "Security" ou clica em "Database Access" que fica abaixo de "Clusters" no menu esquerdo.
+Se não aparecer, clica nessa sequência:
+
+Clica no "Project 0" lá em cima
+Depois procura no menu esquerdo por "Security" → "Database Access"
+
+Me manda um print do menu lateral completo que eu te mostro exatamente onde está!09:40Claude respondeu: Perfeito!Perfeito! Achou! Agora clica em "Edit" do lado do usuário ester!09:42Claude respondeu: Perfeito!Perfeito! Agora clica em "Edit Password", vai abrir um campo para digitar uma senha nova.
+Coloca uma senha fácil de lembrar, por exemplo:
+senha123
+Depois clica em "Update User" lá embaixo para salvar.
+Aí no server.js você coloca assim:
+jsmongoose.connect('mongodb+srv://ester:senha123@cluster0.vkwsusp.mongodb.net/concessionaria')Você disse: pronto e agorapronto e agora09:44Claude respondeu: Agora volta para o CMD e roda o projeto!Agora volta para o CMD e roda o projeto!
+bashcd Documents\projeto-carros
+bashnode server.js
+Se aparecer no CMD:
+Servidor rodando na porta 80
+Conectado ao MongoDB!
+Significa que funcionou! Aí abre o navegador e acessa:
+http://localhost
+Me fala o que apareceu no CMD!Você disse: muda algo:muda algo:## Como rodar o projeto
+
+### Pré-requisitos
+- Node.js instalado
+- MongoDB instalado e rodando
+
+### Instalação
+
+1. Clone o repositório ou baixe os arquivos
+2. Entre na pasta do projeto:
+```
+cd Documents\projeto-carros
+se nn funcionar exemplo:
+cd C:\Users\Lenovo\Documents\projeto-carros\projeto-carros
+-------------------------INSTRUCOES--------------------------
+instrucoes: Abre o Explorador de Arquivos e navega até encontrar a pasta que tem o server.Abre o Explorador de Arquivos e navega até encontrar a pasta que tem o server.js dentro. Quando achar, clica na barra de endereço lá em cima e copia o caminho:
+![barra de endereço]
+Aí no CMD digita:
+cd COLA_O_CAMINHO_AQUIInstale as dependências:
+
+npm install
+Inicie o MongoDB (se não estiver rodando):
+
+mongod
+ ir para o 5 primeiro se nn funcionar digita esse----Rode o servidor (precisa de permissão de admin para porta 80):
+
+node server.js
+
+ou no Linux/Mac:
+
+sudo node server.js
+Acesse no navegador: http://localhost---## Páginas do sistema| Página | Rota |
+|--------|------|
+| Projetos (página principal) | / |
+| Cadastro de usuário | /usuarios/cadastro |
+| Login | /usuarios/login |
+| Listagem de carros | /carros |
+| Gerência de carros | /carros/gerencia |---## Funcionalidades**Usuários**: Cadastro e login com senha criptografada**Carros**: Criar, listar, editar, remover e vender carros**Controle de estoque**: Mostra "Esgotado" quando quantidade = 0---## Banco de Dados (MongoDB)**Coleção: usuarios**
+- nome
+- login
+- senha (criptografada)**Coleção: carros**
+- marca
+- modelo
+- ano
+- qtde_disponivelSe aparecer erro de permissão na porta 80, usa essa alternativa — abre o arquivo server.js e troca a última parte:jsapp.listen(3000, () => {   // troca 80 por 3000
+E acessa no navegador: http://localhost:3000
+Se a porta 80 funcionar, acessa: http://localhostAbre o CMDcd Documents\projeto-carrosnpm install        ← só na primeira veznode server.js     ← toda vez que quiser rodarAbre o navegador → http://localhost ou http://localhost:3000
+```Mostrar mais09:45Claude respondeu: Aqui está o README atualizado e organizado:Aqui está o README atualizado e organizado:
+markdown# Sistema de Gerenciamento de Venda de Carros
+
+## Como rodar o projeto
+
+### Pré-requisitos
+- Node.js instalado
+
+### Instalação passo a passo
+
+1. Abre o CMD (pressiona Win + R, digita cmd)
+
+2. Entre na pasta do projeto:
+cd Documents\projeto-carros
+Se não funcionar, abre o Explorador de Arquivos, navega até a pasta que tem o server.js dentro, clica na barra de endereço lá em cima, copia o caminho e cola no CMD:
+cd C:\Users\Lenovo\Documents\projeto-carros\projeto-carros
+
+Instale as dependências (só na primeira vez):
+
+npm install
+
+Rode o servidor:
+
+node server.js
+
+Acesse no navegador:
+
+http://localhost
+Se der erro de permissão na porta 80, abre o server.js e troca a última linha:
+app.listen(3000, () => {
+E acessa pelo navegador em: http://localhost:3000
+
+Resumo rápido
+1. Abre o CMD
+2. cd Documents\projeto-carros
+3. npm install        ← só na primeira vez
+4. node server.js     ← toda vez que quiser rodar
+5. Abre o navegador → http://localhost ou http://localhost:3000
+
+Banco de Dados
+Usando MongoDB Atlas (online, não precisa instalar nada).
+A string de conexão já está configurada no server.js.
+
+Páginas do sistema
+PáginaRotaProjetos (página principal)/Cadastro de usuário/usuarios/cadastroLogin/usuarios/loginListagem de carros/carrosGerência de carros/carros/gerencia
+
+Funcionalidades
+
+Usuários: Cadastro e login com senha criptografada
+Carros: Criar, listar, editar, remover e vender carros
+Controle de estoque: Mostra "Esgotado" quando quantidade = 0
+
+
+Coleções no banco de dados
+usuarios
+
+nome
+login
+senha (criptografada)
+
+carros
+
+marca
+modelo
+ano
+qtde_disponivel
+
+Você disse: então nao muda nadaentão nao muda nada09:45Claude respondeu: Não, o README é só um arquivo de documentação, ele não afeta o funcionamento do projeto.Não, o README é só um arquivo de documentação, ele não afeta o funcionamento do projeto. É só um texto explicando como usar o sistema, não é código.
+O que realmente importa para o projeto funcionar é:
+server.js        ← motor do projeto
+models/          ← estrutura do banco
+routes/          ← ações do sistema
+views/           ← páginas
+public/css/      ← visual
+O README é só para quem for usar o projeto saber como rodar, tipo um manual. Pode deixar ele como quiser ou até apagar que não muda nada no sistema!Você disse: é que eu ja tinha feito antes com a maneira de instalar o mongo dbé que eu ja tinha feito antes com a maneira de instalar o mongo db
+O Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos os direitos reservados.
+Instale o PowerShell mais recente para obter novos recursos e aprimoramentos! https://aka.ms/PSWindows
+PS C:\Users\Lenovo> cd C:\Users\Lenovo\Documents\projeto-carros\projeto-carros
+PS C:\Users\Lenovo\Documents\projeto-carros\projeto-carros> node server.js
+node:events:487
+      throw er; // Unhandled 'error' event
+      ^
+Error: listen EADDRINUSE: address already in use :::80
+    at Server.setupListenHandle [as _listen2] (node:net:2008:16)
+    at listenInCluster (node:net:2065:12)
+    at Server.listen (node:net:2170:7)
+    at app.listen (C:\Users\Lenovo\Documents\projeto-carros\projeto-carros\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\Lenovo\Documents\projeto-carros\projeto-carros\server.js:43:5)
+    at Module._compile (node:internal/modules/cjs/loader:1830:14)
+    at Object..js (node:internal/modules/cjs/loader:1961:10)
+    at Module.load (node:internal/modules/cjs/loader:1553:32)
+    at Module._load (node:internal/modules/cjs/loader:1355:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:2044:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 80
+}
+Node.js v24.15.0
+PS C:\Users\Lenovo\Documents\projeto-carros\projeto-carros>Mostrar mais09:48Claude respondeu: Esse erro significa que a porta 80 já está sendo usada por outro programa.Esse erro significa que a porta 80 já está sendo usada por outro programa. Tem duas soluções:
+
+Solução mais fácil — trocar para porta 3000
+Abre o server.js e acha a última linha:
+js// ANTES
+app.listen(80, () => {
+  console.log('Servidor rodando na porta 80');
+});
+js// DEPOIS
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
+});
+Salva o arquivo e roda de novo:
+node server.js
+Aí acessa no navegador:
+http://localhost:3000
+
+Se quiser manter a porta 80
+Abre o CMD como Administrador:
+
+Aperta Win
+Digita cmd
+Clica com botão direito em "Prompt de Comando"
+Clica em "Executar como administrador"
+
+Aí digita:
+netstat -ano | findstr :80
+Me manda o que aparecer que eu te digo como liberar a porta!Você disse: PS C:\Users\Lenovo> netstat -ano | findstr :80PS C:\Users\Lenovo> netstat -ano | findstr :80
+  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING       23824
+  TCP    [::]:80                [::]:0                 LISTENING       23824
+PS C:\Users\Lenovo>09:52Claude respondeu: A porta 80 está sendo usada pelo processo 23824.A porta 80 está sendo usada pelo processo 23824. Vamos matar ele:
+Digite isso no CMD:
+taskkill /PID 23824 /F
+Depois tenta rodar o servidor de novo:
+cd C:\Users\Lenovo\Documents\projeto-carros\projeto-carros
+node server.js
+Me fala o que aparecer!Você disse: PS C:\Users\Lenovo> cd C:\Users\Lenovo\Documents\projeto-carros\projeto-carrosPS C:\Users\Lenovo> cd C:\Users\Lenovo\Documents\projeto-carros\projeto-carros
+PS C:\Users\Lenovo\Documents\projeto-carros\projeto-carros> node server.js
+Servidor rodando na porta 80
+Conectado ao MongoDB!09:53Claude respondeu: Funcionou!Funcionou! 🎉
+Agora abre o navegador e acessa:
+http://localhost
+Deve aparecer a página de projetos com o link para o sistema de carros. Me fala o que apareceu!Você disse: e como eu sei que esta rodando atraves daquele mongo db atlas e qdo eu for fazer na prova vou ter que fazer algo ou é so colocar isso:e como eu sei que esta rodando atraves daquele mongo db atlas e qdo eu for fazer na prova vou ter que fazer algo ou é so colocar isso:mongoose.connect('mongodb+srv://ester:senha123@cluster0.vkwsusp.mongodb.net/concessionaria')09:54Claude respondeu: Boa pergunta!Boa pergunta! São duas coisas separadas:
+
+Como saber que está usando o Atlas
+Quando você roda node server.js e aparece:
+Servidor rodando na porta 80
+Conectado ao MongoDB!
+O "Conectado ao MongoDB!" confirma que conectou no Atlas. Se a senha ou a string estivesse errada apareceria um erro aí.
+
+Na prova — o que fazer
+Depende do que o professor exigir:
+
+Se puder usar internet na prova
+Só coloca a string do Atlas no server.js e pronto:
+jsmongoose.connect('mongodb+srv://ester:senha123@cluster0.vkwsusp.mongodb.net/concessionaria')
+Não precisa instalar nada, não precisa fazer mais nada. Funciona na hora.
+
+Se não puder usar internet na prova
+Aí precisa do MongoDB instalado no computador e usa:
+mongoose.connect('mongodb://localhost:27017/concessionaria')

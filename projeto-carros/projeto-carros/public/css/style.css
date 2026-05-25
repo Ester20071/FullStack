@@ -1,0 +1,195 @@
+/* ===== RESET BÁSICO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== FUNDO DA PÁGINA ===== */
+body {
+  background-color: #2a2a35;
+  font-family: Arial, sans-serif;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+/* ===== CENTRALIZAÇÃO DOS ELEMENTOS ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+/* ===== TÍTULOS ===== */
+h1 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-size: 1.3rem;
+  color: gray;
+  margin-bottom: 15px;
+}
+
+/* ===== NAVEGAÇÃO ===== */
+nav {
+  background-color: #374772;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+nav a {
+  color: grey;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+/* ===== TABELAS ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  background-color: grey;
+  color: white;
+  padding: 12px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #16213e;
+  background-color: #0f3460;
+}
+
+tr:hover td {
+  background-color: #16213e;
+}
+
+/* ===== FORMULÁRIOS ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+  align-self: flex-start;
+  color: #ccc;
+  margin-left: 20%;
+}
+/* ===== login e senha em login ===== */
+input {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: #16213e;
+  color: #fff;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+/* ===== BOTÕES ===== */
+button, .btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button[type="submit"] {
+  background-color: purple;
+  color: white;
+  margin-top: 10px;
+  padding: 10px 30px;
+  font-size: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: rgb(247, 63, 247);
+}
+
+.btn-editar {
+  background-color: #0f9b58;
+  color: white;
+  margin: 3px;
+}
+
+.btn-remover {
+  background-color: #c0392b;
+  color: white;
+  margin: 3px;
+}
+
+.btn-vender {
+  background-color: #2980b9;
+  color: white;
+  margin: 3px;
+}
+
+.btn-vender:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* ===== CARD ===== */
+.card {
+  background-color: #0f3460;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid #e94560;
+}
+
+/* ===== STATUS ===== */
+.esgotado {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.disponivel {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+/* ===== MENSAGENS ===== */
+.mensagem {
+  background-color: #0f9b58;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.mensagem.erro {
+  background-color: #c0392b;
+}
+
+/* ===== AÇÕES NA TABELA ===== */
+.acoes {
+  white-space: nowrap;
+}

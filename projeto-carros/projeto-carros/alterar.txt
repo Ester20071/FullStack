@@ -1,0 +1,271 @@
+"Adicione um campo novo no carro" (ex: cor, preço)
+→ Mexe em 2 lugares:
+models/Carro.js — adiciona o campo
+views/carros-gerencia.ejs e views/carro-editar.ejs — adiciona o input no formulário
+
+
+--------USUARIOS - nao muda:-------------
+MAS Se pedir para adicionar email:
+jsemail: { type: String, required: true }  // adiciona essa linha
+-----------------------------------------------
+
+
+
+-----------MUDAR CADA COISA----------------
+O nome do banco (concessionaria)
+É só um nome, não está ligado a nada em nenhum outro arquivo. Você pode mudar só ali e pronto. O MongoDB cria o banco automaticamente com o nome que você colocar.
+js// Pode deixar como está, não quebra nada
+mongoose.connect('mongodb://localhost:27017/concessionaria')
+
+// Ou mudar só aqui, não precisa mexer em mais lugar nenhum
+mongoose.connect('mongodb://localhost:27017/petshop')
+
+=========================Guia de onde cada coisa se interliga=======================
+
+🔴 TROCAR "marca" por outro campo (ex: "nome")
+São 4 lugares que se falam:
+1] — models/Carro.js → define o campo no banco
+js// ANTES
+marca: { type: String, required: true },
+
+// DEPOIS
+nome: { type: String, required: true },
+2] — routes/carros.js → pega o valor do formulário e salva
+js// ANTES — no router.post('/cadastrar') e no router.post('/atualizar/:id')
+const { marca, modelo, ano, qtde_disponivel } = req.body;
+const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+
+// DEPOIS
+const { nome, modelo, ano, qtde_disponivel } = req.body;
+const novoCarro = new Carro({ nome, modelo, ano, qtde_disponivel });
+3] — views/carros-gerencia.ejs → formulário de cadastro e tabela
+html<!-- ANTES — no formulário -->
+<label>Marca:</label>
+<input type="text" name="marca" required>
+
+<!-- DEPOIS -->
+<label>Nome:</label>
+<input type="text" name="nome" required>
+html<!-- ANTES — na tabela -->
+<th>Marca</th>
+...
+<td><%= carro.marca %></td>
+
+<!-- DEPOIS -->
+<th>Nome</th>
+...
+<td><%= carro.nome %></td>
+4] — views/carro-editar.ejs → formulário de edição
+html<!-- ANTES -->
+<label>Marca:</label>
+<input type="text" name="marca" value="<%= carro.marca %>" required>
+
+<!-- DEPOIS -->
+<label>Nome:</label>
+<input type="text" name="nome" value="<%= carro.nome %>" required>
+
+]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+🔴 ADICIONAR um campo novo (ex: "preco")
+São os mesmos 4 lugares:
+1] — models/Carro.js
+jsconst carroSchema = new mongoose.Schema({
+  marca: { type: String, required: true },
+  modelo: { type: String, required: true },
+  ano: { type: Number, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 },
+  preco: { type: Number, required: true }   // ← adiciona aqui
+});
+2] — routes/carros.js → nos dois lugares onde tem req.body
+js// No cadastrar
+const { marca, modelo, ano, qtde_disponivel, preco } = req.body;   // ← adiciona preco
+const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel, preco }); // ← aqui também
+
+// No atualizar
+const { marca, modelo, ano, qtde_disponivel, preco } = req.body;   // ← adiciona preco
+await Carro.findByIdAndUpdate(req.params.id, { marca, modelo, ano, qtde_disponivel, preco }); // ← aqui também
+3] — views/carros-gerencia.ejs → formulário E tabela
+html<!-- No formulário de cadastro, depois do campo ano -->
+<label>Preço:</label>
+<input type="number" name="preco" required>
+
+<!-- Na tabela, adiciona o cabeçalho -->
+<th>Preço</th>
+
+<!-- Na tabela, adiciona a célula dentro do forEach -->
+<td><%= carro.preco %></td>
+4] — views/carro-editar.ejs → formulário de edição
+html<label>Preço:</label>
+<input type="number" name="preco" value="<%= carro.preco %>" required>
+]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+🔴 TROCAR O TEMA COMPLETO (ex: carros → pet shop)
+São 5 lugares:
+1] — models/Carro.js → renomeia o arquivo para Animal.js e muda tudo dentro
+jsconst animalSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  especie: { type: String, required: true },
+  raca: { type: String, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 }
+});
+
+module.exports = mongoose.model('Animal', animalSchema);
+2] — routes/carros.js → renomeia para animais.js e troca dentro do arquivo
+js// ANTES
+const Carro = require('../models/Carro');
+// DEPOIS
+const Animal = require('../models/Animal');
+
+// Troca toda palavra 'Carro' por 'Animal' e 'carro' por 'animal'
+// Troca toda palavra 'carros' por 'animais'
+// Troca os campos: { marca, modelo, ano } por { nome, especie, raca }
+
+// ANTES
+const { marca, modelo, ano, qtde_disponivel } = req.body;
+const novoCarro = new Carro({ marca, modelo, ano, qtde_disponivel });
+// DEPOIS
+const { nome, especie, raca, qtde_disponivel } = req.body;
+const novoAnimal = new Animal({ nome, especie, raca, qtde_disponivel });
+3] — server.js → troca o nome da rota e do arquivo
+js// ANTES
+const carrosRouter = require('./routes/carros');
+app.use('/carros', carrosRouter);
+
+// DEPOIS
+const animaisRouter = require('./routes/animais');
+app.use('/animais', animaisRouter);
+4] — views/ → renomeia os arquivos e troca o conteúdo
+carros-lista.ejs     → animais-lista.ejs
+carros-gerencia.ejs  → animais-gerencia.ejs
+carro-editar.ejs     → animal-editar.ejs
+Dentro de cada um troca os campos na tabela e nos formulários igual mostrei acima.
+5] — views/projects.ejs → atualiza o link
+html<!-- ANTES -->
+<td><a href="/carros">Acessar sistema de carros</a></td>
+
+<!-- DEPOIS -->
+<td><a href="/animais">Acessar sistema de pet shop</a></td>
+
+Resumo visual de interligação
+Quer mudar/adicionar um CAMPO:
+  models/Carro.js         → define o campo
+  routes/carros.js        → cadastrar e atualizar (2 lugares)
+  views/carros-gerencia   → formulário + tabela (2 lugares)
+  views/carro-editar      → formulário de edição
+
+Quer mudar o TEMA inteiro:
+  models/Carro.js         → campos novos
+  routes/carros.js        → importação + campos + nomes
+  server.js               → nome da rota
+  views/*.ejs             → campos + links
+A regra de ouro é: o name do input no .ejs tem que ser igual ao campo no model e no routes. 
+Se um estiver diferente do outro, não salva no banco
+======================================================================
+[][][][][][][[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+CHECK LIST PARA MUDANÇA COMPLETA
+📄 1. models/Carro.js
+
+ Renomear o arquivo para Animal.js
+ Trocar o nome do schema (carroSchema → animalSchema)
+ Trocar os campos dentro do schema
+ Trocar o nome do model na última linha ('Carro' → 'Animal')
+
+
+📄 2. routes/carros.js
+
+ Renomear o arquivo para animais.js
+ Trocar o require do model (../models/Carro → ../models/Animal)
+ Trocar o nome da variável (const Carro → const Animal)
+ Trocar os campos no req.body do cadastrar
+ Trocar os campos no new Carro()  → new Animal()
+ Trocar os campos no req.body do atualizar
+ Trocar os campos no findByIdAndUpdate do atualizar
+ Trocar todos os res.redirect('/carros/...') → /animais/...
+ Trocar todos os res.render('carros-...') → res.render('animais-...')
+ Trocar o nome das variáveis passadas para o EJS ({ carros } → { animais })
+
+
+📄 3. server.js
+
+ Trocar o require da rota (./routes/carros → ./routes/animais)
+ Trocar o nome da variável (carrosRouter → animaisRouter)
+ Trocar o caminho da rota (/carros → /animais)
+ Trocar o nome do banco se quiser (concessionaria → petshop)
+
+
+📄 4. views/carros-lista.ejs
+
+ Renomear o arquivo para animais-lista.ejs
+ Trocar o título da página (<title> e <h1>)
+ Trocar os links do <nav> (/carros → /animais)
+ Trocar os cabeçalhos da tabela (<th>)
+ Trocar os campos dentro do forEach (carro.marca → animal.nome)
+ Trocar o nome da variável do forEach (carros.forEach(carro → animais.forEach(animal)
+
+
+📄 5. views/carros-gerencia.ejs
+
+ Renomear o arquivo para animais-gerencia.ejs
+ Trocar o título da página
+ Trocar os links do <nav>
+ Trocar os campos do formulário de cadastro (name="marca" → name="nome")
+ Trocar os labels do formulário
+ Trocar os cabeçalhos da tabela
+ Trocar os campos dentro do forEach
+ Trocar o nome da variável do forEach
+ Trocar os links dos botões Editar/Remover/Vender (/carros/ → /animais/)
+
+
+📄 6. views/carro-editar.ejs
+
+ Renomear o arquivo para animal-editar.ejs
+ Trocar o título da página
+ Trocar o link do <nav> (voltar para gerência)
+ Trocar o action do formulário (/carros/atualizar/ → /animais/atualizar/)
+ Trocar os campos do formulário (name="marca" → name="nome")
+ Trocar os value dos inputs (carro.marca → animal.nome)
+
+
+📄 7. views/projects.ejs
+
+ Trocar o nome na tabela (Carros → Pet Shop)
+ Trocar o link (/carros → /animais)
+ Trocar o link do <nav> se tiver
+
+
+🔎 Lugares que as pessoas ESQUECEM e dão erro
+Esses são os erros mais comuns:
+1 — Esquecer de trocar o res.render no routes
+js// Se renomeou o arquivo mas esqueceu isso, dá erro de página não encontrada
+res.render('carros-gerencia') // ← ERRADO depois de renomear
+res.render('animais-gerencia') // ← CERTO
+2 — Esquecer de trocar a variável passada para o EJS
+js// routes/animais.js
+const animais = await Animal.find();
+res.render('animais-lista', { animais }); // ← tem que bater com o nome no .ejs
+html<!-- animais-lista.ejs -->
+<% animais.forEach(animal => { %> <!-- ← tem que ser 'animais', igual ao routes -->
+3 — Esquecer de trocar o require no routes
+js// Se esqueceu isso, o sistema continua buscando os dados de carros
+const Animal = require('../models/Animal'); // ← tem que apontar pro arquivo certo
+4 — Esquecer de trocar o app.use no server.js
+js// Se deixar /carros aqui, os links /animais não vão funcionar
+app.use('/animais', animaisRouter); // ← tem que bater com os links das páginas
+
+🎯 Regra de ouro para não errar
+Tem 3 coisas que precisam ser iguais sempre:
+name do input no .ejs
+    ↕ tem que ser igual
+campo no model
+    ↕ tem que ser igual
+campo no req.body do routes
+E tem 2 coisas que precisam bater:
+{ animais } passado no res.render do routes
+    ↕ tem que ser igual
+animais.forEach no .ejs
+
+Regra simples para lembrar
+Sempre que ver uma dessas 4 coisas, pergunta: "ainda tem o nome do tema antigo aqui?"
+1. const { campos } = req.body        → campos = os do model
+2. const novoXxx = new Xxx({ })       → Xxx = nome do model
+3. res.redirect('/rota/...')          → rota = a do server.js
+4. res.render('pagina-...')           → pagina = o arquivo .ejs

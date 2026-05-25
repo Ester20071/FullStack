@@ -1,0 +1,288 @@
+Exemplo: adicionar módulo de Produtos numa pet shop
+São 4 passos sempre na mesma ordem:
+
+PASSO 1 — Cria o Model models/Produto.js
+jsconst mongoose = require('mongoose');
+
+const produtoSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  tipo: { type: String, required: true },   // ex: ração, brinquedo, remédio
+  preco: { type: Number, required: true },
+  qtde_disponivel: { type: Number, required: true, default: 0 }
+});
+
+module.exports = mongoose.model('Produto', produtoSchema);
+
+PASSO 2 — Cria o Routes routes/produtos.js
+jsconst express = require('express');
+const router = express.Router();
+const Produto = require('../models/Produto');
+
+// Middleware de login
+function verificarLogin(req, res, next) {
+  if (req.session.usuario) {
+    next();
+  } else {
+    res.redirect('/usuarios/login');
+  }
+}
+
+// READ — Listagem pública
+router.get('/', async (req, res) => {
+  const produtos = await Produto.find();
+  res.render('produtos-lista', { produtos });
+});
+
+// READ — Página de gerência
+router.get('/gerencia', verificarLogin, async (req, res) => {
+  const produtos = await Produto.find();
+  res.render('produtos-gerencia', { produtos, mensagem: null });
+});
+
+// CREATE — Cadastrar
+router.post('/cadastrar', verificarLogin, async (req, res) => {
+  const { nome, tipo, preco, qtde_disponivel } = req.body;
+  const novoProduto = new Produto({ nome, tipo, preco, qtde_disponivel });
+  await novoProduto.save();
+  res.redirect('/produtos/gerencia');
+});
+
+// DELETE — Remover
+router.post('/remover/:id', verificarLogin, async (req, res) => {
+  await Produto.findByIdAndDelete(req.params.id);
+  res.redirect('/produtos/gerencia');
+});
+
+// READ — Página de editar
+router.get('/editar/:id', verificarLogin, async (req, res) => {
+  const produto = await Produto.findById(req.params.id);
+  res.render('produto-editar', { produto, mensagem: null });
+});
+
+// UPDATE — Atualizar
+router.post('/atualizar/:id', verificarLogin, async (req, res) => {
+  const { nome, tipo, preco, qtde_disponivel } = req.body;
+  await Produto.findByIdAndUpdate(req.params.id, { nome, tipo, preco, qtde_disponivel });
+  res.redirect('/produtos/gerencia');
+});
+
+// UPDATE — Vender/decrementar
+router.post('/vender/:id', verificarLogin, async (req, res) => {
+  const produto = await Produto.findById(req.params.id);
+  if (produto && produto.qtde_disponivel > 0) {
+    produto.qtde_disponivel -= 1;
+    await produto.save();
+  }
+  res.redirect('/produtos/gerencia');
+});
+
+module.exports = router;
+
+PASSO 3 — Registra no server.js
+Só adiciona 2 linhas no server.js:
+js// ANTES — só tinha animais
+const animaisRouter = require('./routes/animais');
+app.use('/animais', animaisRouter);
+
+// DEPOIS — adiciona produtos também
+const animaisRouter = require('./routes/animais');
+const produtosRouter = require('./routes/produtos');  // ← linha nova
+
+app.use('/animais', animaisRouter);
+app.use('/produtos', produtosRouter);  // ← linha nova
+
+PASSO 4 — Cria as páginas na pasta views/
+Cria 3 arquivos novos:
+views/produtos-lista.ejs
+html<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Produtos Disponíveis</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Produtos Disponíveis</h1>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/animais">Ver Animais</a>
+      <a href="/produtos/gerencia">Gerenciar Produtos</a>
+    </nav>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Preço</th>
+          <th>Quantidade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% produtos.forEach(produto => { %>
+          <tr>
+            <td><%= produto.nome %></td>
+            <td><%= produto.tipo %></td>
+            <td><%= produto.preco %></td>
+            <td><%= produto.qtde_disponivel %></td>
+            <td>
+              <% if (produto.qtde_disponivel === 0) { %>
+                <span class="esgotado">Esgotado</span>
+              <% } else { %>
+                <span class="disponivel">Disponível</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <% if (produtos.length === 0) { %>
+      <p>Nenhum produto cadastrado ainda.</p>
+    <% } %>
+  </div>
+</body>
+</html>
+views/produtos-gerencia.ejs
+html<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerência de Produtos</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerência de Produtos</h1>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/produtos">Ver Listagem</a>
+      <a href="/usuarios/logout">Sair</a>
+    </nav>
+
+    <div class="card">
+      <h2>Cadastrar Novo Produto</h2>
+      <form action="/produtos/cadastrar" method="POST">
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label>Tipo:</label>
+        <input type="text" name="tipo" required>
+
+        <label>Preço:</label>
+        <input type="number" name="preco" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" required min="0">
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Produtos Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Preço</th>
+            <th>Qtde</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% produtos.forEach(produto => { %>
+            <tr>
+              <td><%= produto.nome %></td>
+              <td><%= produto.tipo %></td>
+              <td><%= produto.preco %></td>
+              <td><%= produto.qtde_disponivel %></td>
+              <td>
+                <% if (produto.qtde_disponivel === 0) { %>
+                  <span class="esgotado">Esgotado</span>
+                <% } else { %>
+                  <span class="disponivel">Disponível</span>
+                <% } %>
+              </td>
+              <td class="acoes">
+                <a href="/produtos/editar/<%= produto._id %>" class="btn btn-editar">Editar</a>
+
+                <form action="/produtos/vender/<%= produto._id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-vender"
+                    <% if (produto.qtde_disponivel === 0) { %> disabled <% } %>>
+                    Vender
+                  </button>
+                </form>
+
+                <form action="/produtos/remover/<%= produto._id %>" method="POST" style="display:inline;"
+                  onsubmit="return confirm('Tem certeza que quer remover este produto?')">
+                  <button type="submit" class="btn btn-remover">Remover</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <% if (produtos.length === 0) { %>
+        <p>Nenhum produto cadastrado ainda.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
+views/produto-editar.ejs
+html<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Produto</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Editar Produto</h1>
+    <nav>
+      <a href="/produtos/gerencia">Voltar para Gerência</a>
+    </nav>
+
+    <div class="card">
+      <form action="/produtos/atualizar/<%= produto._id %>" method="POST">
+        <label>Nome:</label>
+        <input type="text" name="nome" value="<%= produto.nome %>" required>
+
+        <label>Tipo:</label>
+        <input type="text" name="tipo" value="<%= produto.tipo %>" required>
+
+        <label>Preço:</label>
+        <input type="number" name="preco" value="<%= produto.preco %>" required>
+
+        <label>Quantidade Disponível:</label>
+        <input type="number" name="qtde_disponivel" value="<%= produto.qtde_disponivel %>" required min="0">
+
+        <button type="submit">Salvar Alterações</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+Resumo dos 4 passos sempre na mesma ordem
+1. models/     → cria o arquivo com os campos
+2. routes/     → cria o arquivo com as ações (CRUD)
+3. server.js   → registra a rota nova (2 linhas)
+4. views/      → cria os 3 arquivos .ejs (lista, gerencia, editar)
+Seguindo essa ordem você consegue adicionar quantos módulos quiser sem perder nada!
+
+
+funcoes:
+Sistema de Animais          Sistema de Produtos
+──────────────────          ───────────────────
+Cadastrar animal            Cadastrar produto
+Listar animais              Listar produtos
+Editar animal               Editar produto
+Remover animal              Remover produto
