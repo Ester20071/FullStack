@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "conversoes.h"
 
-int main()
+int main(){
+
 	int opcao;
 	float valor, resultado;
 	
@@ -14,7 +15,7 @@ int main()
 		printf("6 - Minutos para segundos\n");
 		printf("0 - Sair\n");
 		printf("Escolha uma opção: ");
-		scanf(%d, &opcao);
+		scanf("%d, &opcao");
 		if (opcao >= 1 && opcao <=6){
 			printf("Digite o valor: ");
 			scanf("%f, &valor");
@@ -52,7 +53,7 @@ int main()
 			printf("opcao invalida\n");
 		}
 
-	} while (opção !=0);
+	} while ("opção !=0");
 	return 0;
 }
 	
